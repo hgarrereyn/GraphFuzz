@@ -1,0 +1,73 @@
+
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+struct_SkPath:
+  type: struct
+  name: SkPath
+  default_destructor: true
+  headers:
+  - include/core/SkPath.h
+  methods:
+  - SkPath()
+  - void moveTo(SkScalar, SkScalar)
+  - void lineTo(SkScalar, SkScalar)
+  - void quadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  - void conicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void cubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void close()
+  - SkRect getBounds()
+  - void setFillType(SkPathFillType)
+
+struct_SkOpBuilder:
+  type: struct
+  name: SkOpBuilder
+  default_destructor: true
+  headers:
+  - include/pathops/SkPathOps.h
+  methods:
+  - SkOpBuilder()
+  - void add(const SkPath& path, SkPathOp op)
+  - bool resolve(SkPath* result)
+  static_methods:
+  - bool Simplify(const SkPath& path, SkPath* result)
+  - bool Op(const SkPath& one, const SkPath& two, SkPathOp op, SkPath* result)
+  - bool AsWinding(const SkPath& path, SkPath* result)
+  - bool TightBounds(const SkPath& path, SkRect* result)
+
+struct_SkRect:
+  type: struct
+  name: SkRect
+  default_destructor: true
+  headers:
+  - include/core/SkRect.h
+  static_methods:
+  - SkRect MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
+
+enum_SkPathOp:
+  headers:
+  - include/pathops/SkPathOps.h
+  name: SkPathOp
+  type: enum
+  values:
+  - kDifference_SkPathOp
+  - kIntersect_SkPathOp
+  - kUnion_SkPathOp
+  - kXOR_SkPathOp
+  - kReverseDifference_SkPathOp
+
+enum_SkPathFillType:
+  headers:
+  - include/core/SkPathTypes.h
+  name: SkPathFillType
+  type: enum
+  values:
+  - kWinding
+  - kEvenOdd
+  - kInverseWinding
+  - kInverseEvenOdd

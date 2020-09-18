@@ -1,0 +1,267 @@
+
+config:
+  type: config
+  finalizer: |
+    close_all();
+
+typedef_sqlite3_uint64:
+  type: typedef
+  value: uint64_t
+  name: sqlite3_uint64
+
+typedef_sqlite3_int64:
+  type: typedef
+  value: int64_t
+  name: sqlite3_int64
+
+struct_sqlite3:
+  type: struct
+  name: sqlite3
+  c_headers: ['sqlite3.h']
+  headers: ['db_tracker.h']
+  methods:
+    - open_memory:
+        outputs: ['sqlite3']
+        exec: |
+          $o0 = new_database();
+    - forget:
+        inputs: ['sqlite3']
+        exec: |
+          // pass
+  static_methods:
+    - int sqlite3_busy_timeout(sqlite3*, int ms);
+    - int sqlite3_changes(sqlite3*);
+    - int sqlite3_db_cacheflush(sqlite3*);
+    - int sqlite3_db_release_memory(sqlite3*);
+    - int sqlite3_total_changes(sqlite3*);
+    - db_config_SQLITE_DBCONFIG_MAINDBNAME:
+        inputs: ['sqlite3']
+        outputs: ['sqlite3']
+        args: ['char[256]']
+        exec: |
+          $a0[255] = 0;
+          sqlite3_db_config($i0, 1000, $a0);
+          $o0 = $i0;
+    - db_config_SQLITE_DBCONFIG_LOOKASIDE:
+        inputs: ['sqlite3']
+        outputs: ['sqlite3']
+        args: ['int', 'int']
+        exec: |
+          sqlite3_db_config($i0, 1001, 0, $a0, $a1);
+          $o0 = $i0;
+    - int sqlite3_db_config_other:
+        inputs: ['sqlite3']
+        outputs: ['sqlite3']
+        args: ['uint32_t', 'int']
+        exec: |
+          int op = ($a0 % 16) + 1002;
+          sqlite3_db_config($i0, op, $a1, 0);
+          $o0 = $i0;
+    # - int sqlite3_limit(sqlite3*, int id, int newVal);
+
+struct_sqlite3_stmt:
+  type: struct
+  name: sqlite3_stmt
+  c_headers: ['sqlite3.h']
+  methods:
+    - prepare_v2:
+        inputs: ['sqlite3']
+        outputs: ['sqlite3', 'sqlite3_stmt']
+        args: ['char[256]']
+        exec: |
+          sqlite3_prepare_v2($i0, $a0, 256, &$o1, 0);
+          if ($o1 == 0) {
+            close_all();
+            graphfuzz_bail();
+          }
+          $o0 = $i0;
+    - sqlite3_finalize:
+        inputs: ['sqlite3_stmt']
+        exec: |
+          sqlite3_finalize($i0);
+  static_methods:
+    # Binding
+    # - int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
+    # - int sqlite3_bind_blob64(sqlite3_stmt*, int, const void*, sqlite3_uint64, void(*)(void*));
+    - int sqlite3_bind_double(sqlite3_stmt*, int, double);
+    - int sqlite3_bind_int(sqlite3_stmt*, int, int);
+    - int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
+    - int sqlite3_bind_null(sqlite3_stmt*, int);
+    # - int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+    # - int sqlite3_bind_text16(sqlite3_stmt*, int, const void*, int, void(*)(void*));
+    # - int sqlite3_bind_text64(sqlite3_stmt*, int, const char*, sqlite3_uint64, void(*)(void*), unsigned char encoding);
+    - int sqlite3_bind_value(sqlite3_stmt*, int, const sqlite3_value*);
+    - int sqlite3_bind_value(sqlite3_stmt*, int, const unprotected_sqlite3_value*);
+    # - int sqlite3_bind_pointer(sqlite3_stmt*, int, void*, const char*,void(*)(void*));
+    - int sqlite3_bind_zeroblob(sqlite3_stmt*, int, int n);
+    - int sqlite3_bind_zeroblob64(sqlite3_stmt*, int, sqlite3_uint64);
+
+    # Misc
+    - int sqlite3_step(sqlite3_stmt*);
+    - int sqlite3_reset(sqlite3_stmt *pStmt);
+    - int sqlite3_clear_bindings(sqlite3_stmt*);
+    - int sqlite3_bind_parameter_count(sqlite3_stmt*);
+    - const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
+    - int sqlite3_bind_parameter_index(sqlite3_stmt*, const char *zName);:
+        inputs: ['sqlite3_stmt']
+        outputs: ['sqlite3_stmt']
+        args: ['char[64]']
+        exec: |
+          $a0[63] = 0;
+          sqlite3_bind_parameter_index($i0, $a0);
+          $o0 = $i0;
+    - int sqlite3_stmt_busy(sqlite3_stmt*);
+    - void sqlite3_next_stmt(sqlite3 *pDb, sqlite3_stmt *pStmt);
+    - int sqlite3_stmt_isexplain(sqlite3_stmt *pStmt);
+    - int sqlite3_stmt_readonly(sqlite3_stmt *pStmt);
+    - int sqlite3_stmt_status(sqlite3_stmt*, int op,int resetFlg);
+        
+    # Results
+    - int sqlite3_column_count(sqlite3_stmt *pStmt);
+    - int sqlite3_data_count(sqlite3_stmt *pStmt);
+    # - const char *sqlite3_column_database_name(sqlite3_stmt*,int);
+    # - const void *sqlite3_column_database_name16(sqlite3_stmt*,int);
+    # - const char *sqlite3_column_table_name(sqlite3_stmt*,int);
+    # - const void *sqlite3_column_table_name16(sqlite3_stmt*,int);
+    # - const char *sqlite3_column_origin_name(sqlite3_stmt*,int);
+    # - const void *sqlite3_column_origin_name16(sqlite3_stmt*,int);
+    - const char *sqlite3_column_decltype(sqlite3_stmt*,int);
+    - const void *sqlite3_column_decltype16(sqlite3_stmt*,int); 
+    - const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
+    - double sqlite3_column_double(sqlite3_stmt*, int iCol);
+    - int sqlite3_column_int(sqlite3_stmt*, int iCol);
+    - sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
+    - const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
+    - const void *sqlite3_column_text16(sqlite3_stmt*, int iCol);
+    - sqlite3_value *sqlite3_column_value(sqlite3_stmt*, int iCol);:
+        inputs: ['sqlite3_stmt']
+        outputs: ['sqlite3_stmt', 'unprotected_sqlite3_value']
+        args: ['int']
+        exec: |
+          $o1 = sqlite3_column_value($i0, $a0);
+          $o0 = $i0;
+    - int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
+    - int sqlite3_column_bytes16(sqlite3_stmt*, int iCol);
+    - int sqlite3_column_type(sqlite3_stmt*, int iCol);
+
+struct_unprotected_sqlite3_value:
+  type: struct
+  name: unprotected_sqlite3_value
+  c_headers: ['sqlite3.h', 'extra.h']
+  static_methods:
+    - forget:
+        inputs: ['unprotected_sqlite3_value']
+        exec: |
+          // pass
+
+struct_sqlite3_value:
+  type: struct
+  name: sqlite3_value
+  c_headers: ['sqlite3.h']
+  static_methods:
+    - sqlite3_value *sqlite3_value_dup(const sqlite3_value*);:
+        inputs: ['sqlite3_value']
+        outputs: ['sqlite3_value', 'sqlite3_value']
+        exec: |
+          $o1 = sqlite3_value_dup($i0);
+          $o0 = $i0;
+    - sqlite3_value *sqlite3_value_dup(const sqlite3_value*);:
+        inputs: ['unprotected_sqlite3_value']
+        outputs: ['unprotected_sqlite3_value', 'sqlite3_value']
+        exec: |
+          $o1 = sqlite3_value_dup($i0);
+          $o0 = $i0;
+    - void sqlite3_value_free(sqlite3_value*);:
+        inputs: ['sqlite3_value']
+        exec: |
+          sqlite3_value_free($i0);
+    - const void *sqlite3_value_blob(sqlite3_value*);
+    - double sqlite3_value_double(sqlite3_value*);
+    - int sqlite3_value_int(sqlite3_value*);
+    - sqlite3_int64 sqlite3_value_int64(sqlite3_value*);
+    - void *sqlite3_value_pointer(sqlite3_value*, const char*);:
+        inputs: ['sqlite3_value']
+        outputs: ['sqlite3_value']
+        args: ['char[64]']
+        exec: |
+          $a0[63] = 0;
+          sqlite3_value_pointer($i0, $a0);
+          $o0 = $i0;
+    - const unsigned char *sqlite3_value_text(sqlite3_value*);
+    - const void *sqlite3_value_text16(sqlite3_value*);
+    - const void *sqlite3_value_text16le(sqlite3_value*);
+    - const void *sqlite3_value_text16be(sqlite3_value*);
+    - int sqlite3_value_bytes(sqlite3_value*);
+    - int sqlite3_value_bytes16(sqlite3_value*);
+    - int sqlite3_value_type(sqlite3_value*);
+    - int sqlite3_value_numeric_type(sqlite3_value*);
+    - int sqlite3_value_nochange(sqlite3_value*);
+    - int sqlite3_value_frombind(sqlite3_value*);
+
+struct_sqlite3_str:
+  type: struct
+  name: sqlite3_str
+  c_headers: ['sqlite3.h']
+  static_methods:
+    - sqlite3_str *sqlite3_str_new(sqlite3*);:
+        inputs: ['sqlite3']
+        outputs: ['sqlite3', 'sqlite3_str']
+        exec: |
+          $o1 = sqlite3_str_new($i0);
+          $o0 = $i0;
+    - char *sqlite3_str_finish(sqlite3_str*);:
+        inputs: ['sqlite3_str']
+        exec: |
+          char *out = sqlite3_str_finish($i0);
+          sqlite3_free(out);
+    - void sqlite3_str_reset(sqlite3_str*);
+    - void sqlite3_str_appendchar(sqlite3_str*, int N, char C);
+    # - void sqlite3_str_appendf(sqlite3_str*, const char *zFormat, ...);
+    # - void sqlite3_str_vappendf(sqlite3_str*, const char *zFormat, va_list);
+    - void sqlite3_str_append(sqlite3_str*, const char *zIn, int N);:
+        inputs: ['sqlite3_str']
+        outputs: ['sqlite3_str']
+        args: ['char[256]', 'uint32_t']
+        exec: |
+          $a0[255] = 0;
+          int size = strlen($a0);
+          if (size != 0) {
+            int len = $a1 % size;
+            sqlite3_str_append($i0, $a0, len);
+          }
+          $o0 = $i0;
+    - void sqlite3_str_appendall(sqlite3_str*, const char *zIn);:
+        inputs: ['sqlite3_str']
+        outputs: ['sqlite3_str']
+        args: ['char[256]']
+        exec: |
+          $a0[255] = 0;
+          sqlite3_str_appendall($i0, $a0);
+          $o0 = $i0;
+    - int sqlite3_str_errcode(sqlite3_str*);
+    - int sqlite3_str_length(sqlite3_str*);
+    - char *sqlite3_str_value(sqlite3_str*);
+  
+struct_sqlite3_backup:
+  type: struct
+  name: sqlite3_backup
+  c_headers: ['sqlite3.h']
+  static_methods:
+    - sqlite3_backup *sqlite3_backup_init:
+        inputs: ['sqlite3', 'sqlite3']
+        outputs: ['sqlite3', 'sqlite3', 'sqlite3_backup']
+        exec: |
+          $o2 = sqlite3_backup_init($i0, "main", $i1, "main");
+          if ($o2 == 0) {
+            close_all();
+            graphfuzz_bail();
+          }
+          $o0 = $i0;
+          $o1 = $i1;
+    - int sqlite3_backup_step(sqlite3_backup *p, int nPage);
+    - int sqlite3_backup_finish(sqlite3_backup *p);:
+        inputs: ['sqlite3_backup']
+        exec: |
+          sqlite3_backup_finish($i0);
+    - int sqlite3_backup_remaining(sqlite3_backup *p);
+    - int sqlite3_backup_pagecount(sqlite3_backup *p);

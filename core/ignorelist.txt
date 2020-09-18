@@ -1,0 +1,3 @@
+
+# Ignore GraphFuzz core files
+src:.*graphfuzz/src/harness.cpp

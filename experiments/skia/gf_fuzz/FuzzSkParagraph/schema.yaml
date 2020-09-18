@@ -1,0 +1,118 @@
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+struct_skia::textlayout::ParagraphStyle:
+  type: struct
+  name: skia::textlayout::ParagraphStyle
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - modules/skparagraph/include/ParagraphStyle.h
+  methods:
+  - skia::textlayout::ParagraphStyle()
+  - void turnHintingOff()
+  - void setStrutStyle(skia::textlayout::StrutStyle)
+  - void setTextDirection(skia::textlayout::TextDirection)
+  - void setTextAlign(skia::textlayout::TextAlign)
+  - void setMaxLines(size_t)
+  - void setEllipsis({u"\u2026"})
+  - void setHeight(SkScalar)
+  - void setTextHeightBehavior(skia::textlayout::TextHeightBehavior)
+
+struct_skia::textlayout::StrutStyle:
+  type: struct
+  name: skia::textlayout::StrutStyle
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - modules/skparagraph/include/ParagraphStyle.h
+  methods:
+  - skia::textlayout::StrutStyle()
+
+enum_skia::textlayout::TextDirection:
+  type: enum
+  name: skia::textlayout::TextDirection
+  values:
+  - kRtl
+  - kLtr
+
+enum_skia::textlayout::TextAlign:
+  type: enum
+  name: skia::textlayout::TextAlign
+  values:
+  - kLeft
+  - kRight
+  - kCenter
+  - kJustify
+  - kStart
+  - kEnd
+
+enum_skia::textlayout::TextHeightBehavior:
+  type: enum
+  name: skia::textlayout::TextHeightBehavior
+  values:
+  - kAll
+  - kDisableFirstAscent
+  - kDisableLastDescent
+  - kDisableAll
+
+struct_skia::textlayout::ParagraphBuilderImpl:
+  type: struct
+  name: skia::textlayout::ParagraphBuilderImpl
+  alloc_with_new: true
+  default_destructor: true
+  headers:
+  - modules/skparagraph/src/ParagraphBuilderImpl.h
+  - ./paragraph_util.h
+  methods:
+  - skia::textlayout::ParagraphBuilderImpl(const skia::textlayout::ParagraphStyle& style, {sk_make_sp<ResourceFontCollection>()})
+  - void pushStyle(skia::textlayout::TextStyle)
+  - void pop()
+  - AddASCIIText:
+      inputs: ['skia::textlayout::ParagraphBuilderImpl']
+      outputs: ['skia::textlayout::ParagraphBuilderImpl']
+      args: ['char[255]', 'int']
+      exec: |
+        unsigned int textSize = $a1 % 255;
+        $i0->addText($a0, textSize);
+        $o0 = $i0;
+  - AddUnicodeText:
+      inputs: ['skia::textlayout::ParagraphBuilderImpl']
+      outputs: ['skia::textlayout::ParagraphBuilderImpl']
+      args: ['char16_t[255]', 'int']
+      exec: |
+        unsigned int textSize = $a1 % 255;
+        $i0->addText(std::u16string($a0, textSize));
+        $o0 = $i0;
+  - AddZalgo:
+      inputs: ['skia::textlayout::ParagraphBuilderImpl']
+      outputs: ['skia::textlayout::ParagraphBuilderImpl']
+      args: ['char[255]', 'int', 'uint8_t[512]']
+      exec: |
+        unsigned int textSize = $a1 % 255;
+        Fuzz f($a2, 512);
+        AddZalgoText($i0, $a0, textSize, &f);
+        $o0 = $i0;
+
+
+struct_skia::textlayout::TextStyle:
+  type: struct
+  name: skia::textlayout::TextStyle
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - modules/skparagraph/include/TextStyle.h
+  methods:
+  - skia::textlayout::TextStyle()
+  - void setFontFamilies_fixed:
+      inputs: ['skia::textlayout::TextStyle']
+      outputs: ['skia::textlayout::TextStyle']
+      exec: |
+        $i0->setFontFamilies({SkString("Roboto")});
+        $o0 = $i0;
+  

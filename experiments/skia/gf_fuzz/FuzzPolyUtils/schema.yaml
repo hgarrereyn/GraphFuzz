@@ -1,0 +1,27 @@
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+struct_PolyTester:
+  type: struct
+  name: PolyTester
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - poly_util.h
+  methods:
+  - PolyTester(int _count, SkScalar coords[1024], uint16_t _indexMap[512]):
+      args: ['int', 'SkScalar[1024]', 'uint16_t[512]']
+      outputs: ['PolyTester']
+      exec: |
+        $o0 = new PolyTester($a0, $a1, $a2);
+  - void test_SkGetPolygonWinding()
+  - void test_SkIsConvexPolygon()
+  - void test_SkIsSimplePolygon()
+  - void test_SkInsetConvexPolygon(SkScalar inset)
+  - void test_SkOffsetSimplePolygon(SkScalar offset)
+  - void test_SkTriangulateSimplePolygon()

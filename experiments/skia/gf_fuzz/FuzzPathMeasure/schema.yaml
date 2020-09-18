@@ -1,0 +1,61 @@
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+struct_SkPath:
+  type: struct
+  name: SkPath
+  default_destructor: true
+  headers:
+  - include/core/SkPath.h
+  methods:
+  - SkPath()
+  - void moveTo(SkScalar, SkScalar)
+  - void lineTo(SkScalar, SkScalar)
+  - void quadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  - void conicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void cubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void close()
+  - SkRect getBounds()
+
+struct_SkPathMeasure:
+  type: struct
+  name: SkPathMeasure
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - include/core/SkPathMeasure.h
+  methods:
+  - SkPathMeasure(const SkPath& path, bool forceClosed, SkScalar resScale)
+  - bool getPosTan(SkScalar distance, SkPoint* position, SkVector* tangent)
+  - bool getSegment(SkScalar startD, SkScalar stopD, SkPath* dst, bool startWithMoveTo)
+  - bool nextContour()
+
+struct_SkRect:
+  type: struct
+  name: SkRect
+  default_destructor: true
+  headers:
+  - include/core/SkRect.h
+  static_methods:
+  - SkRect MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
+
+struct_SkPoint:
+  type: struct
+  name: SkPoint
+  default_destructor: true
+  headers:
+  - include/core/SkPoint.h
+  static_methods:
+  - SkPoint Make(SkScalar x, SkScalar y)
+
+typedef_SkVector:
+  headers:
+  - SkPoint.h
+  name: SkVector
+  type: typedef
+  value: SkPoint

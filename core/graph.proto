@@ -1,0 +1,75 @@
+
+syntax = "proto3";
+
+// A NodeRef identifies a doubly-linked connection between neighboring nodes.
+//
+// For example, given the graph:
+// 
+//     A(0) -> B(1)
+//
+// Node A would contain a NodeRef in its out_ref list:
+// { node_idx: 1, conn_idx: 0 }
+// Node B would contain a backreference in its in_ref list:
+// { node_idx: 0, conn_idx: 0 }
+//
+// In a more complex graph such as:
+// 
+//     A(0)-\
+//           x-C(2)
+//     B(1)-/
+// 
+// A has one output (to C), B has one output (to C), C has two inputs (A & B).
+// 
+// Node A contains a single NodeRef in out_ref:
+// { node_idx: 2, conn_idx: 0 }
+// Node B contains a single NodeRef in out_ref:
+// { node_idx: 2, conn_idx: 1 }
+// Node C contains two NodeRef's in in_ref:
+// [
+//     { node_idx: 0, conn_idx: 0 },
+//     { node_idx: 1, conn_idx: 0 }    
+// ]
+//
+// The "connection index" of a NodeRef is simply the index of the
+// complementary NodeRef in the target Node. This attribute simplifies graph
+// mutation operations where we need to add and remove nodes efficiently.
+message NodeRef {
+    // The index of the target node.
+    int32 node_idx = 1;
+
+    // The connection index in the target node.
+    int32 conn_idx = 2;
+}
+
+/* A node represents a single "scope" */
+message Node {
+    // Each node has a unique integer index. NodeRef messages use this index
+    // to uniquely identify nodes in a graph.
+    int32 index = 1;
+
+    // The type of a node is an integer corresponding to a scope index in a
+    // schema. Therefore, interpreting the "type" of a node requires a schema.
+    int32 type = 2;
+
+    // A node's layer describes its position in the hierarchy of the graph. A
+    // node may only form a forward connection to a node with a higher layer
+    // value. When a new forward node is added, it inherits the layer value of
+    // its parent plus 1. A new backward node inherits the layer value of its
+    // parent minus 1. This formalization ensures the graph has no cycles.
+    int32 layer = 3;
+
+    // A list of input references.
+    repeated NodeRef in_ref = 4;
+
+    // A list of output references.
+    repeated NodeRef out_ref = 5;
+
+    // A variable size bytestring representing ephemeral variable context.
+    bytes context = 6;
+}
+
+// A graph represents a list of nodes. This is the primary serialization
+// container.
+message Graph {
+    repeated Node nodes = 1;
+}

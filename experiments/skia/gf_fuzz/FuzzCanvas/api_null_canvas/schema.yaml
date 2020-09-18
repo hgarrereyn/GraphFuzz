@@ -1,0 +1,26 @@
+include:
+- "../schema.yaml"
+
+bundle<SkCanvas,SkNullCanvas>:
+  type: bundle
+  name: bundle<SkCanvas,SkNullCanvas>
+  active: SkCanvas
+  inactive: SkNullCanvas
+
+struct_foo:
+  headers:
+  - include/utils/SkNullCanvas.h
+  type: struct
+  name: foo
+  static_methods:
+  - api_null_canvas:
+      outputs: ['bundle<SkCanvas,SkNullCanvas>']
+      exec: |
+        std::unique_ptr<SkCanvas> *parent = MAKE(std::unique_ptr<SkCanvas>);
+        *parent = SkMakeNullCanvas();
+        SkCanvas *canvas = parent->get();
+        $o0 = BUNDLE(canvas, parent);
+  - delete:
+      inputs: ['bundle<SkCanvas,SkNullCanvas>']
+      exec: |
+        delete $i0;

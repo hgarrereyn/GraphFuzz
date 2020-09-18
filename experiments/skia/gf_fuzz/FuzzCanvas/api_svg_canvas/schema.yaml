@@ -1,0 +1,28 @@
+include:
+- "../schema.yaml"
+
+bundle<SkCanvas,parent>:
+  type: bundle
+  name: bundle<SkCanvas,parent>
+  active: SkCanvas
+  inactive: SkSurface
+
+struct_foo:
+  headers:
+  - include/svg/SkSVGCanvas.h
+  type: struct
+  name: foo
+  static_methods:
+  - api_null_canvas:
+      outputs: ['bundle<SkCanvas,parent>']
+      exec: |
+        SkNullWStream *stream = new SkNullWStream();
+        SkRect bounds = SkRect::MakeIWH(150, 150);
+        std::unique_ptr<SkCanvas> *parent = MAKE(std::unique_ptr<SkCanvas>);
+        *parent = SkSVGCanvas::Make(bounds, stream);
+        SkCanvas *canvas = parent->get();
+        $o0 = BUNDLE(canvas, parent);
+  - delete:
+      inputs: ['bundle<SkCanvas,parent>']
+      exec: |
+        delete $i0;

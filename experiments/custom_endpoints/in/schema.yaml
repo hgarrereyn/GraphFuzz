@@ -1,0 +1,11 @@
+
+
+Foo:
+  type: struct
+  name: Foo
+  headers: [lib.h]
+  methods:
+  - Foo()
+  - ~Foo()
+  - void write(char val)
+  - void check()

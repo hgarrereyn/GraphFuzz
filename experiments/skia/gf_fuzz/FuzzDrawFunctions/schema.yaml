@@ -1,0 +1,392 @@
+# This schema mirrors the api used in fuzz/FuzzDrawFunctions.cpp
+
+enum_SkBlendMode:
+  headers:
+  - SkBlendMode.h
+  name: SkBlendMode
+  type: enum
+  values:
+  - kClear
+  - kSrc
+  - kDst
+  - kSrcOver
+  - kDstOver
+  - kSrcIn
+  - kDstIn
+  - kSrcOut
+  - kDstOut
+  - kSrcATop
+  - kDstATop
+  - kXor
+  - kPlus
+  - kModulate
+  - kScreen
+  - kOverlay
+  - kDarken
+  - kLighten
+  - kColorDodge
+  - kColorBurn
+  - kHardLight
+  - kSoftLight
+  - kDifference
+  - kExclusion
+  - kMultiply
+  - kHue
+  - kSaturation
+  - kColor
+  - kLuminosity
+  - kLastCoeffMode
+  - kLastSeparableMode
+  - kLastMode
+
+enum_SkPaint::Cap:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Cap
+  type: enum
+  values:
+  - kButt_Cap
+  - kRound_Cap
+  - kSquare_Cap
+  - kLast_Cap
+  - kDefault_Cap
+
+enum_SkPaint::Join:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Join
+  type: enum
+  values:
+  - kMiter_Join
+  - kRound_Join
+  - kBevel_Join
+  - kLast_Join
+  - kDefault_Join
+
+enum_SkPaint::Style:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Style
+  type: enum
+  values:
+  - kFill_Style
+  - kStroke_Style
+  - kStrokeAndFill_Style
+
+enum_SkFilterQuality:
+  headers:
+  - SkFilterQuality.h
+  name: SkFilterQuality
+  type: enum
+  values:
+  - kNone_SkFilterQuality
+  - kLow_SkFilterQuality
+  - kMedium_SkFilterQuality
+  - kHigh_SkFilterQuality
+  - kLast_SkFilterQuality
+
+enum_SkColorType:
+  headers:
+  - SkImageInfo.h
+  name: SkColorType
+  type: enum
+  values:
+  - kUnknown_SkColorType
+  - kAlpha_8_SkColorType
+  - kRGB_565_SkColorType
+  - kARGB_4444_SkColorType
+  - kRGBA_8888_SkColorType
+  - kRGB_888x_SkColorType
+  - kBGRA_8888_SkColorType
+  - kRGBA_1010102_SkColorType
+  - kBGRA_1010102_SkColorType
+  - kRGB_101010x_SkColorType
+  - kBGR_101010x_SkColorType
+  - kGray_8_SkColorType
+  - kRGBA_F16Norm_SkColorType
+  - kRGBA_F16_SkColorType
+  - kRGBA_F32_SkColorType
+  - kR8G8_unorm_SkColorType
+  - kA16_float_SkColorType
+  - kR16G16_float_SkColorType
+  - kA16_unorm_SkColorType
+  - kR16G16_unorm_SkColorType
+  - kR16G16B16A16_unorm_SkColorType
+  - kLastEnum_SkColorType
+
+enum_SkAlphaType:
+  headers:
+  - SkImageInfo.h
+  name: SkAlphaType
+  type: enum
+  values:
+  - kUnknown_SkAlphaType
+  - kOpaque_SkAlphaType
+  - kPremul_SkAlphaType
+  - kUnpremul_SkAlphaType
+  - kLastEnum_SkAlphaType
+
+enum_SkFont::Edging:
+  headers:
+  - SkFont.h
+  name: SkFont::Edging
+  type: enum
+  values:
+  - kAlias
+  - kAntiAlias
+  - kSubpixelAntiAlias
+
+enum_SkCanvas::SrcRectConstraint:
+  headers:
+  - SkCanvas.h
+  name: SkCanvas::SrcRectConstraint
+  type: enum
+  values:
+  - kStrict_SrcRectConstraint
+  - kFast_SrcRectConstraint
+
+enum_SkClipOp:
+  headers:
+  - SkClipOp.h
+  name: SkClipOp
+  type: enum
+  values:
+  - kDifference
+  - kIntersect
+  - kExtraEnumNeedInternallyPleaseIgnoreWillGoAway2
+  - kExtraEnumNeedInternallyPleaseIgnoreWillGoAway3
+  - kExtraEnumNeedInternallyPleaseIgnoreWillGoAway4
+  - kExtraEnumNeedInternallyPleaseIgnoreWillGoAway5
+  - kMax_EnumValue
+
+typedef_SkColor:
+  headers:
+  - SkColor.h
+  name: SkColor
+  type: typedef
+  value: uint32_t
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+struct_SkPaint:
+  name: SkPaint
+  type: struct
+  default_destructor: true
+  headers:
+  - SkPaint.h
+  methods:
+  - SkPaint()
+  - void setAntiAlias(bool aa)
+  - void setBlendMode(SkBlendMode mode)
+  - void setColor(SkColor color)
+  - void setDither(bool dither)
+  - void setStrokeCap(SkPaint::Cap cap)
+  - void setStrokeJoin(SkPaint::Join join)
+  - void setStrokeMiter(SkScalar miter)
+  - void setStrokeWidth(SkScalar width)
+  - void setStyle(SkPaint::Style style)
+
+struct_SkImageInfo:
+  headers:
+  - SkImageInfo.h
+  methods: []
+  name: SkImageInfo
+  default_destructor: true
+  static_methods:
+  - SkImageInfo Make(int width, int height, SkColorType ct, SkAlphaType at)
+  type: struct
+
+struct_SkBitmap:
+  headers:
+  - SkBitmap.h
+  default_destructor: true
+  methods:
+  - SkBitmap()
+  - bool SK_WARN_UNUSED_RESULT tryAllocPixels(const SkImageInfo &info)
+  - void eraseColor(SkColor c) const
+  - sk_sp<SkImage> asImage():
+      inputs: ['SkBitmap']
+      outputs: ['SkBitmap', 'sk_sp<SkImage>']
+      exec: |
+        $o1 = MAKE(sk_sp<SkImage>);
+        *$o1 = $i0->asImage();
+        $o0 = $i0;
+  name: SkBitmap
+  static_methods: []
+  type: struct
+
+bundle<SkCanvas,SkSurface>:
+  type: bundle
+  name: bundle<SkCanvas,SkSurface>
+  active: SkCanvas
+  inactive: SkSurface
+
+struct_sk_sp<SkSurface>:
+  headers:
+  - SkSurface.h
+  name: sk_sp<SkSurface>
+  type: struct
+  default_destructor: true
+  methods:
+  - make_surface:
+      outputs: ['sk_sp<SkSurface>']
+      args: ['uint8_t', 'uint8_t']
+      exec: |
+        int width = ($a0 % (250 - 1)) + 1;
+        int height = ($a1 % (250 - 1)) + 1;
+        $o0 = MAKE(sk_sp<SkSurface>);
+        *$o0 = SkSurface::MakeRasterN32Premul(width, height);
+        if (!*$o0) {
+          *$o0 = SkSurface::MakeNull(width, height);
+        }
+  - get_canvas:
+      inputs: ['sk_sp<SkSurface>']
+      outputs: ['bundle<SkCanvas,SkSurface>']
+      exec: |
+        SkCanvas *canvas = $i0->get()->getCanvas();
+        $o0 = BUNDLE(canvas, $i0);
+  - delete:
+      inputs: ['bundle<SkCanvas,SkSurface>']
+      exec: |
+        delete $i0;
+
+struct_SkFont:
+  headers:
+  - SkFont.h
+  default_destructor: true
+  methods:
+  - SkFont()
+  - SkFont(sk_sp<SkTypeface> typeface)
+  - void setForceAutoHinting(bool forceAutoHinting)
+  - void setEmbeddedBitmaps(bool embeddedBitmaps)
+  - void setEmbolden(bool embolden)
+  - void setEdging(SkFont::Edging edging)
+  - void setLinearMetrics(bool linearMetrics)
+  - void setSubpixel(bool subpixel)
+  - void setScaleX(SkScalar scaleX)
+  - void setSkewX(SkScalar skewX)
+  - void setSize(SkScalar textSize)
+  name: SkFont
+  static_methods: []
+  type: struct
+
+struct_sk_sp<SkTypeface>:
+  headers:
+  - SkTypeface.h
+  name: sk_sp<SkTypeface>
+  default_destructor: true
+  type: struct
+  static_methods:
+  - sk_sp<SkTypeface> MakeDefault():
+      inputs: []
+      args: []
+      outputs: ['sk_sp<SkTypeface>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkTypeface>);
+        *$o0 = SkTypeface::MakeDefault();
+        if (*$o0 == nullptr) abort();
+
+struct_SkCanvas:
+  headers:
+  - SkCanvas.h
+  methods:
+  - void drawCircle(SkScalar cx, SkScalar cy, SkScalar radius, const SkPaint &paint)
+  - void drawLine(SkScalar x0, SkScalar y0, SkScalar x1, SkScalar y1, const SkPaint &paint)
+  - void drawRect(const SkRect &rect, const SkPaint &paint)
+  - void clipRect(const SkRect &rect, SkClipOp op, bool doAntiAlias)
+  - void drawPath(const SkPath &path, const SkPaint &paint)
+  - void clipPath(const SkPath &path, SkClipOp op, bool doAntiAlias)
+  - void drawPaint(const SkPaint &paint)
+  - void drawImage(const sk_sp<SkImage> &image, SkScalar x, SkScalar y, {SkSamplingOptions()}, const SkPaint *paint)
+  - void drawImage(const sk_sp<SkImage> &image, SkScalar x, SkScalar y, {SkSamplingOptions()}, {nullptr})
+  - void drawTextBlob(const sk_sp<SkTextBlob> &blob, SkScalar x, SkScalar y, const SkPaint &paint)
+  - drawImageRect:
+      inputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkRect', 'SkPaint']
+      outputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkRect', 'SkPaint']
+      args: ['SkCanvas::SrcRectConstraint']
+      exec: |
+        $i0->drawImageRect($i1->get(), *$i2, *$i3, SkSamplingOptions(), $i4, $a0);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+        $o3 = $i3;
+        $o4 = $i4;
+  name: SkCanvas
+  static_methods: []
+  type: struct
+  default_destructor: False
+
+struct_SkRect:
+  headers:
+  - SkRect.h
+  methods: []
+  default_destructor: true
+  name: SkRect
+  static_methods:
+  - constexpr SkRect SK_WARN_UNUSED_RESULT MakeXYWH(SkScalar x, SkScalar y, SkScalar
+    w, SkScalar h)
+  - constexpr SkRect SK_WARN_UNUSED_RESULT MakeWH(SkScalar w, SkScalar h)
+  type: struct
+
+struct_SkPath:
+  headers:
+  - SkPath.h
+  default_destructor: true
+  methods:
+  - SkPath()
+  - void moveTo(SkScalar x, SkScalar y)
+  - void lineTo(SkScalar x, SkScalar y)
+  - void quadTo(SkScalar x1, SkScalar y1, SkScalar x2, SkScalar y2)
+  - void conicTo(SkScalar x1, SkScalar y1, SkScalar x2, SkScalar y2, SkScalar w)
+  - SkPath & cubicTo(SkScalar x1, SkScalar y1, SkScalar x2, SkScalar y2, SkScalar x3, SkScalar y3)
+  - void arcTo(SkScalar x1, SkScalar y1, SkScalar x2, SkScalar y2, SkScalar radius)
+  - void close()
+  name: SkPath
+  type: struct
+
+struct_sk_sp<SkImage>:
+  headers:
+  - SkImage.h
+  name: sk_sp<SkImage>
+  type: struct
+  default_destructor: true
+
+struct_sk_sp<SkTextBlob>:
+  headers:
+  - SkTextBlob.h
+  name: sk_sp<SkTextBlob>
+  type: struct
+  default_destructor: true
+  static_methods:
+  - sk_sp<SkTextBlob> MakeFromPosText(const void *text, size_t byteLength, const SkPoint pos[], const SkFont &font):
+      inputs: ['SkFont']
+      args: [
+        'char', 'char', 'char', 'char', 'char', 
+        'float', 'float',
+        'float', 'float',
+        'float', 'float',
+        'float', 'float',
+        'float', 'float',
+      ]
+      outputs: ['SkFont', 'sk_sp<SkTextBlob>']
+      exec: |
+        char text[5];
+        text[0] = $a0;
+        text[1] = $a1;
+        text[2] = $a2;
+        text[3] = $a3;
+        text[4] = $a4;
+        SkPoint pts[5];
+        pts[0].set($a5,$a6);
+        pts[1].set($a7,$a8);
+        pts[2].set($a9,$a10);
+        pts[3].set($a11,$a12);
+        pts[4].set($a13,$a14);
+        $o1 = MAKE(sk_sp<SkTextBlob>);
+        *$o1 = SkTextBlob::MakeFromPosText(text, 4, pts, *$i0);
+        $o0 = $i0;

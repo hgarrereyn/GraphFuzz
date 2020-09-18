@@ -1,0 +1,1444 @@
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+typedef_SkColor:
+  headers:
+  - SkColor.h
+  name: SkColor
+  type: typedef
+  value: uint32_t
+
+enum_SkBlendMode:
+  headers:
+  - SkBlendMode.h
+  name: SkBlendMode
+  type: enum
+  values:
+  - kClear
+  - kSrc
+  - kDst
+  - kSrcOver
+  - kDstOver
+  - kSrcIn
+  - kDstIn
+  - kSrcOut
+  - kDstOut
+  - kSrcATop
+  - kDstATop
+  - kXor
+  - kPlus
+  - kModulate
+  - kScreen
+  - kOverlay
+  - kDarken
+  - kLighten
+  - kColorDodge
+  - kColorBurn
+  - kHardLight
+  - kSoftLight
+  - kDifference
+  - kExclusion
+  - kMultiply
+  - kHue
+  - kSaturation
+  - kColor
+  - kLuminosity
+  - kLastCoeffMode
+  - kLastSeparableMode
+  - kLastMode
+
+enum_SkPaint::Cap:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Cap
+  type: enum
+  values:
+  - kButt_Cap
+  - kRound_Cap
+  - kSquare_Cap
+  - kLast_Cap
+  - kDefault_Cap
+
+enum_SkPaint::Join:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Join
+  type: enum
+  values:
+  - kMiter_Join
+  - kRound_Join
+  - kBevel_Join
+  - kLast_Join
+  - kDefault_Join
+
+enum_SkPaint::Style:
+  headers:
+  - SkPaint.h
+  name: SkPaint::Style
+  type: enum
+  values:
+  - kFill_Style
+  - kStroke_Style
+  - kStrokeAndFill_Style
+
+enum_SkHighContrastConfig::InvertStyle:
+  headers:
+  - SkHighContrastFilter.h
+  type: enum
+  name: SkHighContrastConfig::InvertStyle
+  values:
+  - kNoInvert
+  - kInvertBrightness
+  - kInvertLightness
+
+enum_SkTileMode:
+  headers:
+  - SkTileMode.h
+  name: SkTileMode
+  type: enum
+  values:
+  - kClamp
+  - kRepeat
+  - kMirror
+  - kDecal
+  - kLastTileMode
+
+enum_SkClipOp:
+  headers:
+  - SkClipOp.h
+  name: SkClipOp
+  type: enum
+  values:
+  - kDifference
+  - kIntersect
+
+enum_SkBlurStyle:
+  headers:
+  - SkBlurTypes.h
+  name: SkBlurStyle
+  type: enum
+  values:
+  - kNormal_SkBlurStyle
+  - kSolid_SkBlurStyle
+  - kOuter_SkBlurStyle
+  - kInner_SkBlurStyle
+  - kLastEnum_SkBlurStyle
+
+enum_SkFilterQuality:
+  headers:
+  - SkFilterQuality.h
+  name: SkFilterQuality
+  type: enum
+  values:
+  - kNone_SkFilterQuality
+  - kLow_SkFilterQuality
+  - kMedium_SkFilterQuality
+  - kHigh_SkFilterQuality
+  - kLast_SkFilterQuality
+
+enum_SkPathDirection:
+  headers:
+  - SkPathTypes.h
+  name: SkPathDirection
+  type: enum
+  values:
+  - kCW
+  - kCCW
+
+enum_SkColorChannel:
+  headers:
+  - SkColor.h
+  name: SkColorChannel
+  type: enum
+  values:
+  - kR
+  - kG
+  - kB
+  - kA
+  - kLastEnum
+
+enum_SkPath::AddPathMode:
+  headers:
+  - SkPath.h
+  name: SkPath::AddPathMode
+  type: enum
+  values:
+  - kAppend_AddPathMode
+  - kExtend_AddPathMode
+
+enum_SkRegion::Op:
+  headers:
+  - SkRegion.h
+  name: SkRegion::Op
+  type: enum
+  values:
+  - kDifference_Op
+  - kIntersect_Op
+  - kUnion_Op
+  - kXOR_Op
+  - kReverseDifference_Op
+  - kReplace_Op
+  - kLastOp
+
+enum_SkCanvas::PointMode:
+  headers:
+  - SkCanvas.h
+  name: SkCanvas::PointMode
+  type: enum
+  values:
+  - kPoints_PointMode
+  - kLines_PointMode
+  - kPolygon_PointMode
+
+enum_SkFontHinting:
+  headers:
+  - SkFontTypes.h
+  name: SkFontHinting
+  type: enum
+  values:
+  - kNone
+  - kSlight
+  - kNormal
+  - kFull
+
+enum_SkFont::Edging:
+  headers:
+  - SkFont.h
+  name: SkFont::Edging
+  type: enum
+  values:
+  - kAlias
+  - kAntiAlias
+  - kSubpixelAntiAlias
+
+enum_SkTextEncoding:
+  headers:
+  - SkFontTypes.h
+  name: SkTextEncoding
+  type: enum
+  values:
+  - kUTF8
+  - kUTF16
+  - kUTF32
+  - kGlyphID
+
+enum_SkVertices::VertexMode:
+  headers:
+  - SkVertices.h
+  name: SkVertices::VertexMode
+  type: enum
+  values:
+  - kTriangles_VertexMode
+  - kTriangleStrip_VertexMode
+  - kTriangleFan_VertexMode
+
+enum_SkPath1DPathEffect::Style:
+  headers:
+  - Sk1DPathEffect.h
+  name: SkPath1DPathEffect::Style
+  type: enum
+  values:
+  - kTranslate_Style
+  - kRotate_Style
+  - kMorph_Style
+
+struct_SkPoint:
+  headers:
+  - SkPoint.h
+  type: struct
+  default_destructor: true
+  name: SkPoint
+  static_methods:
+  - SkPoint Make(SkScalar x, SkScalar y)
+
+struct_SkIRect:
+  headers:
+  - SkRect.h
+  type: struct
+  default_destructor: true
+  name: SkIRect
+  static_methods:
+  - SkIRect MakeXYWH(int32_t x, int32_t y, int32_t w, int32_t h)
+
+struct_SkISize:
+  headers:
+  - SkSize.h
+  type: struct
+  default_destructor: true
+  name: SkISize
+  static_methods:
+  - SkISize Make(int32_t w, int32_t h)
+
+struct_SkRRect:
+  headers:
+  - SkRRect.h
+  type: struct
+  name: SkRRect
+  default_destructor: true
+  static_methods:
+  - make:
+      inputs: ['SkRect']
+      outputs: ['SkRRect', 'SkRect']
+      args: [
+        'SkScalar','SkScalar','SkScalar','SkScalar',
+        'SkScalar','SkScalar','SkScalar','SkScalar'
+      ]
+      exec: |
+        $o0 = MAKE(SkRRect);
+        *$o0 = SkRRect();
+        SkVector radii[4] = {
+          SkPoint::Make($a0,$a1),
+          SkPoint::Make($a2,$a3),
+          SkPoint::Make($a4,$a5),
+          SkPoint::Make($a6,$a7)
+        };
+        $o0->setRectRadii(*$i0, radii);
+        $o1 = $i0;
+
+struct_SkRegion:
+  headers:
+  - SkRegion.h
+  type: struct
+  name: SkRegion
+  default_destructor: true
+  methods:
+  - SkRegion()
+  - void op(SkIRect, SkRegion::Op)
+
+# FuzzNiceMatrix
+struct_SkMatrix:
+  headers:
+  - SkMatrix.h
+  default_destructor: true
+  methods:
+  # (part of case 2)
+  - void postTranslate(SkScalar, SkScalar)
+  - void setAffine(SkScalar[6]):
+      inputs: ['SkMatrix']
+      outputs: ['SkMatrix']
+      args: ['SkScalar[6]']
+      exec: |
+        $i0->setAffine($a0);
+        $o0 = $i0;
+  - void set9(SkScalar[9]):
+      inputs: ['SkMatrix']
+      outputs: ['SkMatrix']
+      args: ['SkScalar[9]']
+      exec: |
+        $i0->set9($a0);
+        $o0 = $i0;
+  name: SkMatrix
+  type: struct
+  static_methods:
+  # case 0
+  - SkMatrix I()
+  # case 1
+  - SkMatrix Translate(SkScalar, SkScalar)
+  # case 2
+  - SkMatrix Scale(SkScalar, SkScalar)
+
+# FuzzNicePath
+struct_SkPath:
+  headers:
+  - SkPath.h
+  type: struct
+  name: SkPath
+  default_destructor: true
+  methods:
+  - SkPath()
+  # case 0
+  - void moveTo(SkScalar, SkScalar)
+  # case 1
+  - void rMoveTo(SkScalar, SkScalar)
+  # case 2
+  - void lineTo(SkScalar, SkScalar)
+  # case 3
+  - void rLineTo(SkScalar, SkScalar)
+  # case 4
+  - void quadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 5
+  - void rQuadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 6
+  - void conicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 7
+  - void rConicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 8
+  - void cubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 9
+  - void rCubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 10
+  - void arcTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  # case 11
+  - void arcTo(SkRect, SkScalar, SkScalar, bool)
+  # case 12
+  - void close()
+  # case 13
+  - void addRect(SkRect, SkPathDirection)
+  # case 14
+  - void addRect(SkRect, SkPathDirection, unsigned int)
+  # case 15
+  - void addOval(SkRect, SkPathDirection)
+  # case 16
+  - void addOval(SkRect, SkPathDirection, unsigned int)
+  # case 17
+  - void addCircle(SkScalar, SkScalar, SkScalar, SkPathDirection)
+  # case 18
+  - void addArc(SkRect, SkScalar, SkScalar)
+  # case 19
+  - void addRoundRect(SkRect, SkScalar, SkScalar, SkPathDirection)
+  # case 20
+  - void addRRect(SkRRect, SkPathDirection)
+  # case 21
+  - void addRRect(SkRRect, SkPathDirection, unsigned int)
+  # case 22
+  - void addPath(SkPath, SkMatrix, SkPath::AddPathMode)
+  # case 23
+  - add_self_path_matrix:
+      inputs: ['SkPath', 'SkMatrix']
+      outputs: ['SkPath', 'SkMatrix']
+      args: ['SkPath::AddPathMode']
+      exec: |
+        $i0->addPath(*$i0, *$i1, $a0);
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 24
+  - void reverseAddPath(SkPath)
+  # case 25
+  - add_self_path:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      exec: |
+        $i0->addPath(*$i0);
+        $o0 = $i0;
+  # case 26
+  - add_self_path_reverse:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      exec: |
+        $i0->reverseAddPath(*$i0);
+        $o0 = $i0;
+  # case 27
+  - offset_self:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      args: ['SkScalar', 'SkScalar']
+      exec: |
+        $i0->offset($a0, $a1, $i0);
+        $o0 = $i0;
+  # case 28
+  - void offset(SkScalar, SkScalar, SkPath *)
+  # case 29
+  - transform_self:
+      inputs: ['SkPath', 'SkMatrix']
+      outputs: ['SkPath', 'SkMatrix']
+      exec: |
+        $i0->transform(*$i1, $i0);
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 30
+  - void transform(SkMatrix, SkPath *)
+  # case 31
+  - void setLastPt(SkScalar, SkScalar)
+
+# make_fuzz_image
+struct_SkImage:
+  headers:
+  - SkImage.h
+  - private/SkTemplates.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkImage>
+  type: struct
+  static_methods:
+  - make_fuzz_image:
+      # Make an image from 1x1 to 1024x1024
+      # only set 64 pixels
+      args: ['uint16_t[2]', 'uint32_t[64]', 'SkColor[64]']
+      outputs: ['sk_sp<SkImage>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkImage>);
+        unsigned int w = $a0[0];
+        unsigned int h = $a0[1];
+        SkAutoTMalloc<SkPMColor> data(w * h);
+        SkPixmap pixmap(SkImageInfo::MakeN32Premul(w, h), data.get(), w * sizeof(SkPMColor));
+        int n = w * h;
+        if (n > 0) {
+          for (int i = 0; i < 64; ++i) {
+            data[$a1[i] % n] = SkPreMultiplyColor($a2[i]);
+          }
+        }
+        (void)data.release();
+        *$o0 = SkImage::MakeFromRaster(pixmap, [](const void* p, void*) { sk_free((void*)p); }, nullptr);
+
+# make_fuzz_colorfilter
+struct_SkColorFilter:
+  type: struct
+  headers:
+  - SkColorFilter.h
+  - SkTableColorFilter.h
+  - SkColorMatrixFilter.h
+  - SkHighContrastFilter.h
+  - SkLumaColorFilter.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkColorFilter>
+  static_methods:
+  # case 0
+  - nullptr:
+      outputs: ['sk_sp<SkColorFilter>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkColorFilter>);
+  # case 1
+  - sk_sp<SkColorFilter> SkColorFilters::Blend(SkColor, SkBlendMode)
+  # case 2
+  - sk_sp<SkColorFilter> makeComposed:
+      inputs: ['sk_sp<SkColorFilter>', 'sk_sp<SkColorFilter>']
+      outputs: ['sk_sp<SkColorFilter>', 'sk_sp<SkColorFilter>', 'sk_sp<SkColorFilter>']
+      exec: |
+        $o2 = MAKE(sk_sp<SkColorFilter>);
+        if (*$i0 != nullptr) *$o2 = (*$i0)->makeComposed(*$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 3
+  - SkColorFilters::Matrix:
+      outputs: ['sk_sp<SkColorFilter>']
+      args: ['float[20]']
+      exec: |
+        $o0 = MAKE(sk_sp<SkColorFilter>);
+        *$o0 = SkColorFilters::Matrix($a0);
+  # case 4
+  - sk_sp<SkColorFilter> SkColorMatrixFilter::MakeLightingFilter(SkColor, SkColor)
+  # case 5
+  - SkHighContrastFilter::Make:
+      outputs: ['sk_sp<SkColorFilter>']
+      args: ['bool', 'SkHighContrastConfig::InvertStyle', 'float']
+      exec: |
+        $o0 = MAKE(sk_sp<SkColorFilter>);
+        *$o0 = SkHighContrastFilter::Make(SkHighContrastConfig($a0, $a1, $a2));
+  # case 6
+  - sk_sp<SkColorFilter> SkLumaColorFilter::Make()
+  # case 7
+  - sk_sp<SkColorFilter> SkTableColorFilter::Make:
+      outputs: ['sk_sp<SkColorFilter>']
+      args: ['uint8_t[256]']
+      exec: |
+        $o0 = MAKE(sk_sp<SkColorFilter>);
+        *$o0 = SkTableColorFilter::Make($a0);
+  # case 8
+  - sk_sp<SkColorFilter> SkTableColorFilter::MakeARGB:
+      outputs: ['sk_sp<SkColorFilter>']
+      args: ['uint8_t[256]', 'uint8_t[256]', 'uint8_t[256]', 'uint8_t[256]']
+      exec: |
+        $o0 = MAKE(sk_sp<SkColorFilter>);
+        *$o0 = SkTableColorFilter::MakeARGB($a0, $a1, $a2, $a3);
+
+# fuzz_paint
+struct_SkPaint:
+  type: struct
+  name: SkPaint
+  default_destructor: true
+  headers:
+  - SkPaint.h
+  methods:
+  - SkPaint()
+  - void setAntiAlias(bool)
+  - void setDither(bool)
+  - void setColor(SkColor)
+  - void setBlendMode(SkBlendMode)
+  - void setStyle(SkPaint::Style)
+  - void setShader(sk_sp<SkShader>)
+  - void setPathEffect(sk_sp<SkPathEffect>)
+  - void setMaskFilter(sk_sp<SkMaskFilter>)
+  - void setImageFilter(sk_sp<SkImageFilter>)
+  - void setColorFilter(sk_sp<SkColorFilter>)
+  - void setStrokeWidth(SkScalar)
+  - void setStrokeMiter(SkScalar)
+  - void setStrokeCap(SkPaint::Cap)
+  - void setStrokeJoin(SkPaint::Join)
+
+# fuzz_font
+struct_SkFont:
+  type: struct
+  name: SkFont
+  default_destructor: true
+  headers:
+  - SkFont.h
+  - SkFontTypes.h
+  methods:
+  - SkFont()
+  - void setTypeface(sk_sp<SkTypeface>)
+  - void setSize(SkScalar)
+  - void setScaleX(SkScalar)
+  - void setSkewX(SkScalar)
+  - void setLinearMetrics(bool)
+  - void setSubpixel(bool)
+  - void setEmbeddedBitmaps(bool)
+  - void setForceAutoHinting(bool)
+  - void setEmbolden(bool)
+  - void setHinting(SkFontHinting)
+  - void setEdging(SkFont::Edging)
+
+struct_SkRect:
+  type: struct
+  name: SkRect
+  default_destructor: true
+  headers:
+  - SkRect.h
+  static_methods:
+  - SkRect MakeXYWH(SkScalar, SkScalar, SkScalar, SkScalar)
+
+struct_SkPoint3:
+  headers:
+  - SkPoint3.h
+  default_destructor: true
+  methods: []
+  name: SkPoint3
+  static_methods:
+  - SkPoint3 Make(SkScalar x, SkScalar y, SkScalar z)
+  type: struct
+
+# fuzz_canvas
+struct_SkCanvas:
+  type: struct
+  name: SkCanvas
+  headers:
+  - SkCanvas.h
+  methods:
+  # case 0
+  - void flush()
+  # case 1
+  - void save()
+  # case 2
+  - void saveLayer(SkRect *, SkPaint *)
+  # case 3
+  - void saveLayer(SkRect *, {nullptr})
+  # case 4
+  - void saveLayer({nullptr}, SkPaint *)
+  # case 5
+  - void saveLayer({nullptr}, {nullptr})
+  # case 6
+  - void saveLayerAlpha({nullptr}, uint8_t)
+  # case 7
+  - void saveLayerAlpha(SkRect *, uint8_t)
+  # case 8
+  - canvas_saveLayer:
+      inputs: ['SkCanvas', 'SkRect', 'SkPaint', 'sk_sp<SkImageFilter>']
+      outputs: ['SkCanvas', 'SkRect', 'SkPaint', 'sk_sp<SkImageFilter>']
+      args: ['bool', 'bool', 'bool']
+      exec: |
+        SkCanvas::SaveLayerRec saveLayerRec;
+        if ($a0) saveLayerRec.fBounds = $i1;
+        if ($a1) saveLayerRec.fPaint = $i2;
+        if ($a2) saveLayerRec.fBackdrop = $i3->get();
+        $i0->saveLayer(saveLayerRec);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+        $o3 = $i3;
+  # case 9
+  - void restore()
+  # case 10
+  - void restoreToCount(int)
+  # case 11
+  - void translate(SkScalar, SkScalar)
+  # case 12
+  - void scale(SkScalar, SkScalar)
+  # case 13
+  - void rotate(SkScalar)
+  # case 14
+  - void rotate(SkScalar, SkScalar, SkScalar)
+  # case 15
+  - void skew(SkScalar, SkScalar)
+  # case 16
+  - void concat(SkMatrix)
+  # case 17
+  - void setMatrix(SkMatrix)
+  # case 18
+  - void resetMatrix()
+  # case 19
+  - void clipRect(SkRect, SkClipOp, bool)
+  # case 20
+  - void clipRRect(SkRRect, SkClipOp, bool)
+  # case 21
+  - void clipPath(SkPath, SkClipOp, bool)
+  # case 22
+  - void clipRegion(SkRegion, SkClipOp)
+  # case 23
+  - void drawPaint(SkPaint)
+  # case 24
+  - canvas_drawPoints:
+      # kMaxCount = 30
+      inputs: ['SkCanvas', 'SkPaint']
+      outputs: ['SkCanvas', 'SkPaint']
+      args: ['SkScalar[60]', 'int', 'SkCanvas::PointMode']
+      exec: |
+        int count = $a1 % 30;
+        SkPoint pts[30];
+        for (int i = 0; i < count; ++i) {
+          pts[i] = SkPoint::Make($a0[i*2], $a0[(i*2)+1]);
+        }
+        $i0->drawPoints($a2, count, pts, *$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 25
+  - void drawRect(SkRect, SkPaint)
+  # case 26
+  - void drawRegion(SkRegion, SkPaint)
+  # case 27
+  - void drawOval(SkRect, SkPaint)
+  # case 28 (deleted)
+  # case 29
+  - void drawRRect(SkRRect, SkPaint)
+  # case 30
+  - void drawDRRect(SkRRect, SkRRect, SkPaint)
+  # case 31
+  - void drawArc(SkRect, SkScalar, SkScalar, bool, SkPaint)
+  # case 32
+  - void drawPath(SkPath, SkPaint)
+  # case 33
+  - drawImage:
+      inputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkPaint']
+      outputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkPaint']
+      args: ['SkScalar', 'SkScalar', 'bool']
+      exec: |
+        $i0->drawImage($i1->get(), $a0, $a1, SkSamplingOptions(), $a2 ? $i2 : nullptr);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+  # case 34 (missing)
+  # case 35
+  - drawImageRect:
+      inputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkRect', 'SkPaint']
+      outputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkRect', 'SkPaint']
+      args: ['bool', 'bool']
+      exec: |
+        $i0->drawImageRect($i1->get(), *$i2, *$i3, SkSamplingOptions(), $a0 ? $i4 : nullptr, $a1 ? SkCanvas::kStrict_SrcRectConstraint : SkCanvas::kFast_SrcRectConstraint);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+        $o3 = $i3;
+        $o4 = $i4;
+  # case 36 (missing)
+  # case 37
+  - drawImageNine:
+      inputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkIRect', 'SkRect', 'SkPaint']
+      outputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkIRect', 'SkRect', 'SkPaint']
+      args: ['bool']
+      exec: |
+        $i0->drawImageNine($i1->get(), *$i2, *$i3, SkFilterMode::kNearest, $a0 ? $i4 : nullptr);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+        $o3 = $i3;
+        $o4 = $i4;
+  # case 44
+  - canvas_drawImageLattice:
+      # kMax = 6
+      inputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkPaint']
+      outputs: ['SkCanvas', 'sk_sp<SkImage>', 'SkRect', 'SkPaint']
+      args: ['int[6]', 'int[6]', 'int', 'int', 'bool']
+      exec: |
+        SkCanvas::Lattice lattice{
+          $a0, 
+          $a1, 
+          nullptr, 
+          ($a2 % (6-2)) + 2,
+          ($a3 % (6-2)) + 2, 
+          nullptr, 
+          nullptr
+        };
+        $i0->drawImageLattice($i1->get(), lattice, *$i2, SkFilterMode::kLinear, $a4 ? $i3 : nullptr);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+        $o3 = $i3;
+  # case 45:
+  - canvas_drawSimpleText:
+      inputs: ['SkCanvas', 'SkFont', 'SkPaint']
+      outputs: ['SkCanvas', 'SkFont', 'SkPaint']
+      args: ['uint8_t[128]', 'SkScalar', 'SkScalar', 'SkTextEncoding']
+      exec: |
+        Fuzz f = Fuzz($a0, 128);
+        SkTDArray<uint8_t> text = make_fuzz_text(&f, *$i1, $a3);
+        $i0->drawSimpleText(
+          text.begin(), 
+          SkToSizeT(text.count()),
+          $a3,
+          $a1,
+          $a2,
+          *$i1,
+          *$i2
+        );
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+  # case 46-50 (deleted)
+  # case 51
+  - void drawTextBlob(sk_sp<SkTextBlob>, SkScalar, SkScalar, SkPaint)
+  # case 52
+  - void drawPicture(sk_sp<SkPicture>, SkMatrix *, SkPaint *)
+  - void drawPicture(sk_sp<SkPicture>, SkMatrix *, {nullptr})
+  - void drawPicture(sk_sp<SkPicture>, {nullptr}, SkPaint *)
+  - void drawPicture(sk_sp<SkPicture>, {nullptr}, {nullptr})
+  # case 53
+  - canvas_drawVertices:
+      # kMaxCount = 100
+      inputs: ['SkCanvas', 'SkPaint']
+      outputs: ['SkCanvas', 'SkPaint']
+      args: [
+        'SkVertices::VertexMode', 'SkBlendMode', 
+        'SkScalar[200]', 'SkScalar[200]', 'SkColor[100]',
+        'int', 'bool', 'bool', 'bool',
+        'uint16_t[200]', 'int'
+      ]
+      exec: |
+        int vertexCount = ($a5 % (100 - 3)) + 3;
+
+        SkPoint vertices[100];
+        SkPoint texs[100];
+
+        for (int i = 0; i < vertexCount; ++i) {
+          vertices[i] = SkPoint::Make($a2[i*2], $a2[(i*2)+1]);
+          texs[i] = SkPoint::Make($a3[i*2], $a3[(i*2)+1]);
+        }
+
+        int indexCount = $a8 ? (($a10 % 100) + vertexCount) : 0;
+
+        $i0->drawVertices(SkVertices::MakeCopy(
+            $a0, vertexCount, vertices,
+            $a6 ? texs : nullptr,
+            $a7 ? $a4 : nullptr,
+            indexCount, $a9
+          ), $a1, *$i1
+        );
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 54
+  - void drawColor(SkColor, SkBlendMode)
+  # case 55
+  - void drawColor(SkColor4f, SkBlendMode):
+        inputs: ['SkCanvas']
+        outputs: ['SkCanvas']
+        args: ['SkColor', 'SkBlendMode']
+        exec: |
+          $i0->drawColor(SkColor4f::FromColor($a0), $a1);
+          $o0 = $i0;
+  # case 56
+  - void drawLine(SkPoint, SkPoint, SkPaint)
+  # case 57
+  - void drawIRect(SkIRect, SkPaint)
+  # case 58
+  - void drawCircle(SkPoint, SkScalar, SkPaint)
+  # case 59
+  - void drawArc(SkRect, SkScalar, SkScalar, bool, SkPaint)
+  # case 60
+  - void drawRoundRect(SkRect, SkScalar, SkScalar, SkPaint)
+  # case 61
+  - canvas_drawString:
+      inputs: ['SkCanvas', 'SkFont', 'SkPaint']
+      outputs: ['SkCanvas', 'SkFont', 'SkPaint']
+      args: ['uint8_t[128]', 'SkScalar', 'SkScalar']
+      exec: |
+        Fuzz f = Fuzz($a0, 128);
+        std::string str = make_fuzz_string(&f);
+        $i0->drawString(str.c_str(), $a1, $a2, *$i1, *$i2);
+        $o0 = $i0;
+        $o1 = $i1;
+        $o2 = $i2;
+  # case 62
+  - canvas_drawPatch:
+      inputs: ['SkCanvas', 'SkPaint']
+      outputs: ['SkCanvas', 'SkPaint']
+      args: ['SkScalar[24]', 'SkColor[4]', 'SkScalar[8]', 'bool', 'SkBlendMode']
+      exec: |
+        SkPoint cubics[12];
+        for (int i = 0; i < 12; ++i) cubics[i] = SkPoint::Make($a0[i*2], $a0[(i*2)+1]);
+        SkPoint tex[4];
+        for (int i = 0; i < 4; ++i) tex[i] = SkPoint::Make($a2[i*2], $a2[(i*2)+1]);
+        $i0->drawPatch(cubics, $a1, $a3 ? tex : nullptr, $a4, *$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+
+
+bundle<SkCanvas,SkPictureRecorder>:
+  type: bundle
+  name: bundle<SkCanvas,SkPictureRecorder>
+  active: SkCanvas
+  inactive: SkPictureRecorder
+
+# make_fuzz_picture
+struct_SkPicture:
+  headers:
+  - SkPicture.h
+  - SkPictureRecorder.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkPicture>
+  type: struct
+  static_methods:
+  - begin_recording_canvas:
+      outputs: ['bundle<SkCanvas,SkPictureRecorder>']
+      args: ['SkScalar', 'SkScalar']
+      exec: |
+        SkPictureRecorder *recorder = new SkPictureRecorder();
+        SkCanvas *canvas = recorder->beginRecording($a0, $a1);
+        $o0 = BUNDLE(canvas, recorder);
+  - end_recording_canvas:
+      inputs: ['bundle<SkCanvas,SkPictureRecorder>']
+      outputs: ['sk_sp<SkPicture>']
+      exec: |
+        SkPictureRecorder *recorder = (SkPictureRecorder *)$i0->inactive;
+        delete $i0;
+        $o0 = MAKE(sk_sp<SkPicture>);
+        *$o0 = recorder->finishRecordingAsPicture();
+
+# make_fuzz_shader
+struct_SkShader:
+  headers:
+  - SkShader.h
+  - SkGradientShader.h
+  - SkPerlinNoiseShader.h
+  - fuzz_util.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkShader>
+  type: struct
+  static_methods:
+  # case 0
+  - nullptr:
+      outputs: ['sk_sp<SkShader>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+  # case 1
+  - sk_sp<SkShader> SkShaders::Empty()
+  # case 2
+  - sk_sp<SkShader> SkShaders::Color(SkColor)
+  # case 3
+  - SkImage::makeShader:
+      inputs: ['sk_sp<SkImage>', 'SkMatrix']
+      outputs: ['sk_sp<SkShader>', 'sk_sp<SkImage>', 'SkMatrix']
+      args: ['SkTileMode', 'SkTileMode']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        if (*$i0 != nullptr) *$o0 = (*$i0)->makeShader($a0, $a1, SkSamplingOptions(), *$i1);
+        $o1 = $i0;
+        $o2 = $i1;
+  # case 5
+  - SkShader::makeWithLocalMatrix:
+      inputs: ['sk_sp<SkShader>', 'SkMatrix']
+      outputs: ['sk_sp<SkShader>', 'sk_sp<SkShader>', 'SkMatrix']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        if (*$i0 != nullptr) *$o0 = (*$i0)->makeWithLocalMatrix(*$i1);
+        $o1 = $i0;
+        $o2 = $i1;
+  # case 6
+  - SkShader::makeWithColorFilter:
+      inputs: ['sk_sp<SkShader>', 'sk_sp<SkColorFilter>']
+      outputs: ['sk_sp<SkShader>', 'sk_sp<SkShader>', 'sk_sp<SkColorFilter>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        if (*$i0 != nullptr) *$o0 = (*$i0)->makeWithColorFilter(*$i1);
+        $o1 = $i0;
+        $o2 = $i1;
+  # case 7
+  - sk_sp<SkShader> SkShaders::Blend(SkBlendMode, sk_sp<SkShader>, sk_sp<SkShader>)
+  # case 8
+  - SkPicture::makeShader:
+      inputs: ['sk_sp<SkPicture>', 'SkMatrix', 'SkRect']
+      outputs: ['sk_sp<SkShader>', 'sk_sp<SkPicture>', 'SkMatrix', 'SkRect']
+      args: ['SkTileMode', 'SkTileMode', 'bool', 'bool']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        if (*$i0 != nullptr) {
+          if ($a2 && $a3)
+            *$o0 = (*$i0)->makeShader($a0, $a1, SkFilterMode::kNearest, $i1, $i2);
+          else if ($a2)
+            *$o0 = (*$i0)->makeShader($a0, $a1, SkFilterMode::kNearest, $i1, nullptr);
+          else if ($a3)
+            *$o0 = (*$i0)->makeShader($a0, $a1, SkFilterMode::kNearest, nullptr, $i2);
+          else
+            *$o0 = (*$i0)->makeShader($a0, $a1, SkFilterMode::kNearest, nullptr, nullptr);
+        }
+        $o1 = $i0;
+        $o2 = $i1;
+        $o3 = $i2;
+  # case 9 (deprecated)
+  # case 10
+  - SkGradientShader::MakeLinear:
+      inputs: ['SkMatrix']
+      outputs: ['sk_sp<SkShader>', 'SkMatrix']
+      args: ['SkScalar[2]', 'SkScalar[2]', 'SkColor[12]', 'SkScalar[12]', 'SkTileMode', 'bool[2]', 'int']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        
+        SkPoint pts[2] = {
+          SkPoint::Make($a0[0], $a0[1]),
+          SkPoint::Make($a1[0], $a1[1]),
+        };
+
+        int colorCount = $a6;
+        if (colorCount < 2) colorCount = 2;
+        if (colorCount > 12) colorCount = 12;
+
+        fuzz_gradient_stops($a3, colorCount);
+
+        if ($a5[0] && $a5[1])
+          *$o0 = SkGradientShader::MakeLinear(pts, $a2, $a3, colorCount, $a4, 0, $i0);
+        else if ($a5[0])
+          *$o0 = SkGradientShader::MakeLinear(pts, $a2, $a3, colorCount, $a4, 0, nullptr);
+        else if ($a5[1])
+          *$o0 = SkGradientShader::MakeLinear(pts, $a2, nullptr, colorCount, $a4, 0, $i0);
+        else
+          *$o0 = SkGradientShader::MakeLinear(pts, $a2, nullptr, colorCount, $a4, 0, nullptr);
+
+        $o1 = $i0;
+  # case 11
+  - SkGradientShader::MakeRadial:
+      inputs: ['SkMatrix']
+      outputs: ['sk_sp<SkShader>', 'SkMatrix']
+      args: ['SkScalar[2]', 'SkScalar', 'SkColor[12]', 'SkScalar[12]', 'SkTileMode', 'bool[2]', 'int']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        
+        SkPoint center = SkPoint::Make($a0[0], $a0[1]);
+
+        int colorCount = $a6;
+        if (colorCount < 2) colorCount = 2;
+        if (colorCount > 12) colorCount = 12;
+
+        fuzz_gradient_stops($a3, colorCount);
+
+        if ($a5[0] && $a5[1])
+          *$o0 = SkGradientShader::MakeRadial(center, $a1, $a2, $a3, colorCount, $a4, 0, $i0);
+        else if ($a5[0])
+          *$o0 = SkGradientShader::MakeRadial(center, $a1, $a2, $a3, colorCount, $a4, 0, nullptr);
+        else if ($a5[1])
+          *$o0 = SkGradientShader::MakeRadial(center, $a1, $a2, nullptr, colorCount, $a4, 0, $i0);
+        else
+          *$o0 = SkGradientShader::MakeRadial(center, $a1, $a2, nullptr, colorCount, $a4, 0, nullptr);
+
+        $o1 = $i0;
+  # case 12
+  - SkGradientShader::MakeTwoPointConical:
+      inputs: ['SkMatrix']
+      outputs: ['sk_sp<SkShader>', 'SkMatrix']
+      args: ['SkScalar[4]', 'SkScalar[2]', 'SkColor[12]', 'SkScalar[12]', 'SkTileMode', 'bool[2]', 'int']
+      exec: |
+        $o0 = MAKE(sk_sp<SkShader>);
+        
+        SkPoint start = SkPoint::Make($a0[0], $a0[1]);
+        SkPoint end = SkPoint::Make($a0[2], $a0[3]);
+
+        int colorCount = $a6;
+        if (colorCount < 2) colorCount = 2;
+        if (colorCount > 12) colorCount = 12;
+
+        fuzz_gradient_stops($a3, colorCount);
+
+        if ($a5[0] && $a5[1])
+          *$o0 = SkGradientShader::MakeTwoPointConical(start, $a1[0], end, $a1[1], $a2, $a3, colorCount, $a4, 0, $i0);
+        else if ($a5[0])
+          *$o0 = SkGradientShader::MakeTwoPointConical(start, $a1[0], end, $a1[1], $a2, $a3, colorCount, $a4, 0, nullptr);
+        else if ($a5[1])
+          *$o0 = SkGradientShader::MakeTwoPointConical(start, $a1[0], end, $a1[1], $a2, nullptr, colorCount, $a4, 0, $i0);
+        else
+          *$o0 = SkGradientShader::MakeTwoPointConical(start, $a1[0], end, $a1[1], $a2, nullptr, colorCount, $a4, 0, nullptr);
+
+        $o1 = $i0;
+  # case 13
+  # - SkGradientShader::MakeSweep:
+  #     inputs: ['SkMatrix']
+  #     outputs: ['sk_sp<SkShader>', 'SkMatrix']
+  #     args: ['SkScalar', 'SkScalar', 'SkColor[12]', 'SkScalar[12]', 'SkTileMode', 'bool[2]', 'int']
+  #     exec: |
+  #       $o0 = MAKE(sk_sp<SkShader>);
+        
+  #       int colorCount = $a6;
+  #       if (colorCount < 2) colorCount = 2;
+  #       if (colorCount > 12) colorCount = 12;
+
+  #       fuzz_gradient_stops($a3, colorCount);
+
+  #       if ($a5[0] && $a5[1])
+  #         *$o0 = SkGradientShader::MakeSweep($a0, $a1, $a2, $a3, colorCount, $a4, 0, $i0);
+  #       else if ($a5[0])
+  #         *$o0 = SkGradientShader::MakeSweep($a0, $a1, $a2, $a3, colorCount, $a4, 0, nullptr);
+  #       else if ($a5[1])
+  #         *$o0 = SkGradientShader::MakeSweep($a0, $a1, $a2, nullptr, colorCount, $a4, 0, $i0);
+  #       else
+  #         *$o0 = SkGradientShader::MakeSweep($a0, $a1, $a2, nullptr, colorCount, $a4, 0, nullptr);
+
+  #       $o1 = $i0;
+  # case 14
+  - sk_sp<SkShader> SkPerlinNoiseShader::MakeTurbulence(SkScalar, SkScalar, int, SkScalar, SkISize *)
+  - sk_sp<SkShader> SkPerlinNoiseShader::MakeFractalNoise(SkScalar, SkScalar, int, SkScalar, SkISize *)
+
+# make_fuzz_patheffect
+struct_SkPathEffect:
+  headers:
+  - SkPathEffect.h
+  - Sk1DPathEffect.h
+  - Sk2DPathEffect.h
+  - SkDashPathEffect.h
+  - SkCornerPathEffect.h
+  - SkDiscretePathEffect.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkPathEffect>
+  type: struct
+  static_methods:
+  # case 0
+  - nullptr:
+      outputs: ['sk_sp<SkPathEffect>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkPathEffect>);
+  # case 1
+  - sk_sp<SkPathEffect> SkPathEffect::MakeSum(sk_sp<SkPathEffect>, sk_sp<SkPathEffect>)
+  # case 2
+  - sk_sp<SkPathEffect> SkPathEffect::MakeCompose(sk_sp<SkPathEffect>, sk_sp<SkPathEffect>)
+  # case 3
+  - sk_sp<SkPathEffect> SkPath1DPathEffect::Make(SkPath, SkScalar, SkScalar, SkPath1DPathEffect::Style)
+  # case 4
+  - sk_sp<SkPathEffect> SkLine2DPathEffect::Make(SkScalar, SkMatrix)
+  # case 5
+  - sk_sp<SkPathEffect> SkPath2DPathEffect::Make(SkMatrix, SkPath)
+  # case 6
+  - sk_sp<SkPathEffect> SkCornerPathEffect::Make(SkScalar)
+  # case 7
+  - SkDashPathEffect::Make:
+      outputs: ['sk_sp<SkPathEffect>']
+      args: ['SkScalar', 'SkScalar', 'SkScalar[20]']
+      exec: |
+        $o0 = MAKE(sk_sp<SkPathEffect>);
+        int count = $a0;
+        if (count < 0) count = 0;
+        if (count > 20) count = 20;
+        *$o0 = SkDashPathEffect::Make($a2, count, $a1);
+  # case 8
+  - sk_sp<SkPathEffect> SkDiscretePathEffect::Make(SkScalar, SkScalar, uint32_t)
+
+# make_fuzz_maskfilter
+struct_SkMaskFilter:
+  headers:
+  - SkMaskFilter.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkMaskFilter>
+  type: struct
+  static_methods:
+  # case 0
+  - nullptr:
+      outputs: ['sk_sp<SkMaskFilter>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkMaskFilter>);
+  # case 1
+  - sk_sp<SkMaskFilter> SkMaskFilter::MakeBlur(SkBlurStyle, SkScalar, bool)
+
+# make_fuzz_typeface
+struct_SkTypeface:
+  headers:
+  - SkTypeface.h
+  - SkFontMgr.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkTypeface>
+  type: struct
+  static_methods:
+  - nullptr:
+      outputs: ['sk_sp<SkTypeface>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkTypeface>);
+  - fetch_font_style:
+      outputs: ['sk_sp<SkTypeface>']
+      args: ['uint32_t', 'uint32_t']
+      exec: |
+        $o0 = MAKE(sk_sp<SkTypeface>);
+        auto fontMugger = SkFontMgr::RefDefault();
+        int familyCount = fontMugger->countFamilies();
+        sk_sp<SkFontStyleSet> family(fontMugger->createStyleSet($a0 % familyCount));
+        int styleCount = family->count();
+        *$o0 = sk_sp<SkTypeface>(family->createTypeface($a1 % styleCount));
+
+struct_SkImageFilter:
+  headers:
+  - SkImageFilter.h
+  - SkImageFilters.h
+  methods: []
+  default_destructor: true
+  copy_as_assignment: true
+  name: sk_sp<SkImageFilter>
+  type: struct
+  static_methods:
+  - nullptr:
+      outputs: ['sk_sp<SkImageFilter>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+  # [make_fuzz_lighting_imagefilter]
+  # case 1
+  - sk_sp<SkImageFilter> SkImageFilters::DistantLitDiffuse(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::DistantLitDiffuse(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, {nullptr})
+  # case 2
+  - sk_sp<SkImageFilter> SkImageFilters::PointLitDiffuse(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::PointLitDiffuse(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, {nullptr})
+  # case 3
+  - sk_sp<SkImageFilter> SkImageFilters::SpotLitDiffuse(SkPoint3 p, SkPoint3 q, SkScalar specularExponent, SkScalar cutoffAngle, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::SpotLitDiffuse(SkPoint3 p, SkPoint3 q, SkScalar specularExponent, SkScalar cutoffAngle, SkColor lightColor, SkScalar surfaceScale, SkScalar k, sk_sp<SkImageFilter> input, {nullptr})
+  # case 4
+  - sk_sp<SkImageFilter> SkImageFilters::DistantLitSpecular(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::DistantLitSpecular(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, {nullptr})
+  # case 5
+  - sk_sp<SkImageFilter> SkImageFilters::PointLitSpecular(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::PointLitSpecular(SkPoint3 p, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, {nullptr})
+  # case 6
+  - sk_sp<SkImageFilter> SkImageFilters::SpotLitSpecular(SkPoint3 p, SkPoint3 q, SkScalar specularExponent, SkScalar cutoffAngle, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, SkIRect *cropRect)
+  - sk_sp<SkImageFilter> SkImageFilters::SpotLitSpecular(SkPoint3 p, SkPoint3 q, SkScalar specularExponent, SkScalar cutoffAngle, SkColor lightColor, SkScalar surfaceScale, SkScalar k, SkScalar shininess, sk_sp<SkImageFilter> input, {nullptr})
+
+  # [make_fuzz_imageFilter]
+  # case 1
+  - sk_sp<SkImageFilter> SkImageFilters::Blur(SkScalar, SkScalar, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Blur(SkScalar, SkScalar, sk_sp<SkImageFilter>, {nullptr})
+  # case 2
+  - SkImageFilters::MatrixTransform:
+      inputs: ['sk_sp<SkImageFilter>', 'SkMatrix']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkMatrix']
+      args: ['SkFilterQuality']
+      exec: |
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::MatrixTransform(*$i1, SkSamplingOptions($a0), *$i0);
+        $o1 = $i0;
+        $o2 = $i1;
+  # case 3
+  - sk_sp<SkImageFilter> SkImageFilters::AlphaThreshold(SkRegion, SkScalar, SkScalar, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::AlphaThreshold(SkRegion, SkScalar, SkScalar, sk_sp<SkImageFilter>, {nullptr})
+  # case 4
+  - sk_sp<SkImageFilter> SkImageFilters::Arithmetic(float, float, float, float, bool, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Arithmetic(float, float, float, float, bool, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, {nullptr})
+  # case 5
+  - sk_sp<SkImageFilter> SkImageFilters::ColorFilter(sk_sp<SkColorFilter>, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::ColorFilter(sk_sp<SkColorFilter>, sk_sp<SkImageFilter>, {nullptr})
+  # case 6
+  - sk_sp<SkImageFilter> SkImageFilters::Compose(sk_sp<SkImageFilter>, sk_sp<SkImageFilter>)
+  # case 7
+  - sk_sp<SkImageFilter> SkImageFilters::DisplacementMap(SkColorChannel, SkColorChannel, SkScalar, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::DisplacementMap(SkColorChannel, SkColorChannel, SkScalar, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, {nullptr})
+  # case 8
+  - sk_sp<SkImageFilter> SkImageFilters::DropShadowOnly(SkScalar, SkScalar, SkScalar, SkScalar, SkColor, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::DropShadowOnly(SkScalar, SkScalar, SkScalar, SkScalar, SkColor, sk_sp<SkImageFilter>, {nullptr})
+  - sk_sp<SkImageFilter> SkImageFilters::DropShadow(SkScalar, SkScalar, SkScalar, SkScalar, SkColor, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::DropShadow(SkScalar, SkScalar, SkScalar, SkScalar, SkColor, sk_sp<SkImageFilter>, {nullptr})
+  # case 9
+  - sk_sp<SkImageFilter> SkImageFilters::Image(sk_sp<SkImage>)
+  # case 10
+  - SkImageFilters::Image:
+      inputs: ['sk_sp<SkImage>', 'SkRect', 'SkRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImage>', 'SkRect', 'SkRect']
+      args: ['SkFilterQuality']
+      exec: |
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::Image(*$i0, *$i1, *$i2, SkSamplingOptions($a0));
+        $o1 = $i0;
+        $o2 = $i1;
+        $o3 = $i2;
+  # case 11 (make_fuzz_lighting_imagefilter)
+  # case 12
+  - sk_sp<SkImageFilter> SkImageFilters::Magnifier(SkRect, SkScalar, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Magnifier(SkRect, SkScalar, sk_sp<SkImageFilter>, {nullptr})
+  # case 13
+  - SkImageFilters::MatrixConvolution:
+      # kMaxKernelSize = 5
+      inputs: ['sk_sp<SkImageFilter>', 'SkIRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      args: [
+        'uint8_t', 'uint8_t', 'SkScalar[25]', 'SkScalar', 'SkScalar',
+        'uint8_t', 'uint8_t', 'SkTileMode', 'bool', 'bool'
+      ]
+      exec: |
+        int32_t n = ($a0 % (5-1)) + 1;
+        int32_t m = ($a1 % (5-1)) + 1;
+        int32_t offsetX = ($a5 % n);
+        int32_t offsetY = ($a6 % n);
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::MatrixConvolution(
+          SkISize{n, m}, $a2, $a3, $a4, SkIPoint{offsetX, offsetY},
+          $a7, $a8, *$i0, $a9 ? $i1 : nullptr
+        );
+        $o1 = $i0;
+        $o2 = $i1;
+  # case 14
+  - sk_sp<SkImageFilter> SkImageFilters::Merge(sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Merge(sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, {nullptr})
+  # case 15
+  - merge_1:
+      inputs: ['sk_sp<SkImageFilter>', 'SkIRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      args: ['bool']
+      exec: |
+        sk_sp<SkImageFilter> ifs[] = {*$i0};
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::Merge(ifs, 1, $a0 ? $i1 : nullptr);
+        $o1 = $i0;
+        $o2 = $i1;
+  - merge_2:
+      inputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      args: ['bool']
+      exec: |
+        sk_sp<SkImageFilter> ifs[] = {*$i0, *$i1};
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::Merge(ifs, 2, $a0 ? $i2 : nullptr);
+        $o1 = $i0;
+        $o2 = $i1;
+        $o3 = $i2;
+  - merge_3:
+      inputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      args: ['bool']
+      exec: |
+        sk_sp<SkImageFilter> ifs[] = {*$i0, *$i1, *$i2};
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::Merge(ifs, 3, $a0 ? $i3 : nullptr);
+        $o1 = $i0;
+        $o2 = $i1;
+        $o3 = $i2;
+        $o4 = $i3;
+  - merge_4:
+      inputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      outputs: ['sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'sk_sp<SkImageFilter>', 'SkIRect']
+      args: ['bool']
+      exec: |
+        sk_sp<SkImageFilter> ifs[] = {*$i0, *$i1, *$i2, *$i3};
+        $o0 = MAKE(sk_sp<SkImageFilter>);
+        *$o0 = SkImageFilters::Merge(ifs, 4, $a0 ? $i4 : nullptr);
+        $o1 = $i0;
+        $o2 = $i1;
+        $o3 = $i2;
+        $o4 = $i3;
+        $o5 = $i4;
+  # case 16
+  - sk_sp<SkImageFilter> SkImageFilters::Dilate(int, int, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Dilate(int, int, sk_sp<SkImageFilter>, {nullptr})
+  # case 17
+  - sk_sp<SkImageFilter> SkImageFilters::Erode(int, int, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Erode(int, int, sk_sp<SkImageFilter>, {nullptr})
+  # case 18
+  - sk_sp<SkImageFilter> SkImageFilters::Offset(SkScalar, SkScalar, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Offset(SkScalar, SkScalar, sk_sp<SkImageFilter>, {nullptr})
+  # case 19
+  - sk_sp<SkImageFilter> SkImageFilters::Paint(SkPaint, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Paint(SkPaint, {nullptr})
+  # case 20
+  - sk_sp<SkImageFilter> SkImageFilters::Picture(sk_sp<SkPicture>)
+  # case 21
+  - sk_sp<SkImageFilter> SkImageFilters::Picture(sk_sp<SkPicture>, SkRect)
+  # case 22
+  - sk_sp<SkImageFilter> SkImageFilters::Tile(SkRect, SkRect, sk_sp<SkImageFilter>)
+  # case 23
+  - sk_sp<SkImageFilter> SkImageFilters::Blend(SkBlendMode, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Blend(SkBlendMode, sk_sp<SkImageFilter>, sk_sp<SkImageFilter>, {nullptr})
+  # case 24
+  - sk_sp<SkImageFilter> SkImageFilters::Shader(sk_sp<SkShader>, SkIRect *)
+  - sk_sp<SkImageFilter> SkImageFilters::Shader(sk_sp<SkShader>, {nullptr})
+
+struct_sk_sp<SkTextBlob>:
+  type: struct
+  name: sk_sp<SkTextBlob>
+  default_destructor: true
+  headers:
+  - SkTextBlob.h
+
+struct_SkTextBlobBuilder:
+  type: struct
+  name: SkTextBlobBuilder
+  default_destructor: false
+  headers:
+  - SkTextBlob.h
+  methods:
+  - SkTextBlobBuilder:
+      outputs: ['SkTextBlobBuilder']
+      exec: |
+        $o0 = new SkTextBlobBuilder();
+  - delete:
+      inputs: ['SkTextBlobBuilder']
+      exec: |
+        delete $i0;
+  - make:
+      inputs: ['SkTextBlobBuilder']
+      outputs: ['sk_sp<SkTextBlob>']
+      exec: |
+        $o0 = MAKE(sk_sp<SkTextBlob>);
+        *$o0 = $i0->make();
+  # case 0
+  - allocRun:
+      inputs: ['SkTextBlobBuilder', 'SkFont']
+      outputs: ['SkTextBlobBuilder', 'SkFont']
+      args: ['uint8_t[128]', 'SkTextEncoding', 'SkScalar', 'SkScalar']
+      exec: |
+        Fuzz f($a0, 128);
+        SkTDArray<uint8_t> text = make_fuzz_text(&f, *$i1, $a1);
+        int glyphCount = $i1->countText(text.begin(), SkToSizeT(text.count()), $a1);
+        const void* textPtr = text.begin();
+        size_t textLen =  SkToSizeT(text.count());
+
+        const SkTextBlobBuilder::RunBuffer* buffer;
+        buffer = &$i0->allocRun(*$i1, glyphCount, $a2, $a3);
+        $i1->textToGlyphs(textPtr, textLen, $a1, buffer->glyphs, glyphCount);
+
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 1
+  - allocRunPosH:
+      inputs: ['SkTextBlobBuilder', 'SkFont']
+      outputs: ['SkTextBlobBuilder', 'SkFont']
+      args: ['uint8_t[128]', 'SkTextEncoding', 'SkScalar', 'SkScalar[32]']
+      exec: |
+        Fuzz f($a0, 128);
+        SkTDArray<uint8_t> text = make_fuzz_text(&f, *$i1, $a1);
+        int glyphCount = $i1->countText(text.begin(), SkToSizeT(text.count()), $a1);
+        const void* textPtr = text.begin();
+        size_t textLen =  SkToSizeT(text.count());
+
+        const SkTextBlobBuilder::RunBuffer* buffer;
+        buffer = &$i0->allocRunPosH(*$i1, glyphCount, $a2);
+        $i1->textToGlyphs(textPtr, textLen, $a1, buffer->glyphs, glyphCount);
+
+        for (int i = 0; (i < glyphCount) && (i < 32); ++i) {
+          buffer->pos[i] = $a3[i];
+        }
+
+        $o0 = $i0;
+        $o1 = $i1;
+  # case 2
+  - allocRunPos:
+      inputs: ['SkTextBlobBuilder', 'SkFont']
+      outputs: ['SkTextBlobBuilder', 'SkFont']
+      args: ['uint8_t[128]', 'SkTextEncoding', 'SkScalar[64]']
+      exec: |
+        Fuzz f($a0, 128);
+        SkTDArray<uint8_t> text = make_fuzz_text(&f, *$i1, $a1);
+        int glyphCount = $i1->countText(text.begin(), SkToSizeT(text.count()), $a1);
+        const void* textPtr = text.begin();
+        size_t textLen =  SkToSizeT(text.count());
+
+        const SkTextBlobBuilder::RunBuffer* buffer;
+        buffer = &$i0->allocRunPos(*$i1, glyphCount);
+        $i1->textToGlyphs(textPtr, textLen, $a1, buffer->glyphs, glyphCount);
+
+        for (int i = 0; (i < (glyphCount * 2)) && (i < 64); ++i) {
+          buffer->pos[i] = $a2[i];
+        }
+
+        $o0 = $i0;
+        $o1 = $i1;

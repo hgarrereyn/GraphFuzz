@@ -1,0 +1,37 @@
+include:
+- "../schema.yaml"
+
+struct_harness:
+  type: struct
+  name: harness
+  headers:
+  - SkPaint.h
+  static_methods:
+  - harness:
+      inputs: ['sk_sp<SkImageFilter>']
+      args: ['uint32_t[256]', 'uint8_t[256]']
+      exec: |
+        auto filter = *$i0;
+        if (filter == nullptr) return;
+
+        SkBitmap bitmap;
+        bitmap.tryAllocN32Pixels(256, 256);
+
+        auto data = filter->serialize();
+        const unsigned char* ptr = static_cast<const unsigned char*>(data->data());
+        unsigned char* p = const_cast<unsigned char*>(ptr);
+        size_t len = data->size();
+
+        // Bitflips
+        for (int i = 0; i < 256; ++i) {
+          size_t pos = $a0[i] % len;
+          p[pos] = $a1[i];
+        }
+
+        auto deserializedFil = SkImageFilter::Deserialize(ptr, len);
+        SkPaint paint;
+        paint.setImageFilter(deserializedFil);
+
+        SkCanvas canvas(bitmap);
+        canvas.saveLayer(SkRect::MakeWH(256, 256), &paint);
+        canvas.restore();

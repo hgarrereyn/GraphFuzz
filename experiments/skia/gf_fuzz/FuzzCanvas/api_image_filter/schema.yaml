@@ -1,0 +1,18 @@
+include:
+- "../schema.yaml"
+
+struct_harness:
+  type: struct
+  name: harness
+  headers:
+  - SkPaint.h
+  static_methods:
+  - harness:
+      inputs: ['sk_sp<SkImageFilter>']
+      exec: |
+        SkPaint paint;
+        paint.setImageFilter(*$i0);
+        SkBitmap bitmap;
+        SkCanvas canvas(bitmap);
+        canvas.saveLayer(SkRect::MakeWH(500, 500), &paint);
+        delete $i0;

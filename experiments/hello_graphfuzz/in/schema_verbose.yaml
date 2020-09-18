@@ -1,0 +1,28 @@
+
+
+Foo:
+  type: struct
+  name: Foo
+  headers: [lib.h]
+  methods:
+  - Foo():
+      outputs: ['Foo']
+      exec: |
+        $o0 = new Foo();
+  - ~Foo():
+      inputs: ['Foo']
+      exec: |
+        delete $i0;
+  - void write(char val):
+      inputs: ['Foo']
+      outputs: ['Foo']
+      args: ['char']
+      exec: |
+        $i0->write($a0);
+        $o0 = $i0;
+  - void check():
+      inputs: ['Foo']
+      outputs: ['Foo']
+      exec: |
+        $i0->check();
+        $o0 = $i0;

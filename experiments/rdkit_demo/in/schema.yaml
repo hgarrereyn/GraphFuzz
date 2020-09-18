@@ -1,0 +1,35 @@
+
+struct_RWMol:
+  type: struct
+  name: RDKit::RWMol
+  alloc_with_new: true
+  headers: ['<GraphMol/RWMol.h>']
+  methods:
+  - RDKit::RWMol()
+  - ~RDKit::RWMol()
+  - void setAtomBookmark(RDKit::Atom *, int)
+  - void clearAtomBookmark(int)
+  - void clearAtomBookmark(int, RDKit::Atom *)
+  - getAllAtomsWithBookmark(int):
+      inputs: ['RDKit::RWMol']
+      outputs: ['RDKit::RWMol']
+      args: ['int']
+      exec: |
+        if ($i0->hasAtomBookmark($a0)) {
+          for (RDKit::Atom *atom : $i0->getAllAtomsWithBookmark($a0)) {
+            atom->getAtomicNum();
+          }
+        }
+        $o0 = $i0;
+
+struct_Atom:
+  type: struct
+  name: RDKit::Atom
+  alloc_with_new: true
+  headers: ['<GraphMol/Atom.h>']
+  methods:
+  - RDKit::Atom(int)
+  - ~RDKit::Atom()
+  - void setIsAromatic(bool)
+  - bool getIsAromatic()
+  - int getAtomicNum()

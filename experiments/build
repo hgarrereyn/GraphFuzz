@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import argparse
+from pathlib import Path
+import subprocess
+from typing import List
+
+def run(args):
+    if args.experiment == 'base':
+        # Build base image in root folder context.
+        subprocess.run(['docker', 'build', '..', '-f', 'base/Dockerfile', '-t', 'graphfuzz_base'])
+    else:        
+        # Build experiment in subfolder root.
+        subprocess.run(['docker', 'build', f'./{args.experiment}', '-f', f'{args.experiment}/Dockerfile', '-t', f'graphfuzz_{args.experiment}'])
+
+def get_choices() -> List[str]:
+    return [x.stem for x in Path('.').iterdir() if x.is_dir()]
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('experiment', choices=get_choices())
+    args = parser.parse_args()
+    run(args)
+
+if __name__ == '__main__':
+    main()

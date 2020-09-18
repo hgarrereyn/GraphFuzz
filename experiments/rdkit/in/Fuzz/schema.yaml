@@ -1,0 +1,529 @@
+
+
+enum_RDKit::Bond::BondType:
+  type: enum
+  name: RDKit::Bond::BondType
+  values:
+  - UNSPECIFIED
+  - SINGLE
+  - DOUBLE
+  - TRIPLE
+  - QUADRUPLE
+  - QUINTUPLE
+  - HEXTUPLE
+  - ONEANDAHALF
+  - TWOANDAHALF
+  - THREEANDAHALF
+  - FOURANDAHALF
+  - FIVEANDAHALF
+  - AROMATIC
+  - IONIC
+  - HYDROGEN
+  - THREECENTER
+  - DATIVEONE
+  - DATIVE
+  - DATIVEL
+  - DATIVER
+  - OTHER
+  - ZERO
+
+enum_RDKit::Bond::BondDir:
+  type: enum
+  name: RDKit::Bond::BondDir
+  values:
+  - NONE
+  - BEGINWEDGE
+  - BEGINDASH
+  - ENDDOWNRIGHT
+  - ENDUPRIGHT
+  - EITHERDOUBLE
+  - UNKNOWN
+
+enum_RDKit::Bond::BondStereo:
+  type: enum
+  name: RDKit::Bond::BondStereo
+  values:
+  - STEREONONE
+  - STEREOANY
+  - STEREOZ
+  - STEREOE
+  - STEREOCIS
+  - STEREOTRANS
+
+enum_RDKit::Atom::HybridizationType:
+  type: enum
+  name: RDKit::Atom::HybridizationType
+  values:
+  - UNSPECIFIED
+  - S
+  - SP
+  - SP2
+  - SP3
+  - SP3D
+  - SP3D2
+  - OTHER
+
+enum_RDKit::Atom::ChiralType:
+  type: enum
+  name: RDKit::Atom::ChiralType
+  values:
+  - CHI_UNSPECIFIED
+  - CHI_TETRAHEDRAL_CW
+  - CHI_TETRAHEDRAL_CCW
+  - CHI_OTHER
+
+bundle<Conformer,ROMol>:
+  type: bundle
+  name: bundle<Conformer,ROMol>
+  active: RDKit::Conformer
+  inactive: RDKit::ROMol
+
+struct_RDKit::ROMol:
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - <GraphMol/ROMol.h>
+  methods:
+  - unsigned int getNumAtoms() const
+  - unsigned int getNumAtoms(bool onlyExplicit) const
+  - unsigned int getNumHeavyAtoms() const
+  # - RDKit::Atom * getAtomWithIdx(unsigned int idx)
+  # - const RDKit::Atom * getAtomWithIdx(unsigned int idx) const
+  - class U getAtomWithIdx(const U idx)
+  - class U getAtomWithIdx(const U idx) const
+
+  # TODO(bug5)
+  # - unsigned int getAtomDegree(const RDKit::Atom *at) const
+
+  - unsigned int getNumBonds(bool onlyHeavy) const
+  # - RDKit::Bond * getBondWithIdx(unsigned int idx)
+  # - const RDKit::Bond * getBondWithIdx(unsigned int idx) const
+  - class U getBondWithIdx(const U idx)
+  - class U getBondWithIdx(const U idx) const
+  # - RDKit::Bond * getBondBetweenAtoms(unsigned int idx1, unsigned int idx2)
+  # - const RDKit::Bond * getBondBetweenAtoms(unsigned int idx1, unsigned int idx2) const
+  - class U getBondBetweenAtoms(const U idx1, const V idx2)
+  - class U getBondBetweenAtoms(const U idx1, const V idx2) const
+  - void setAtomBookmark(RDKit::Atom *at, int mark):
+      inputs: ['RDKit::ROMol', 'RDKit::Atom']
+      outputs: ['RDKit::ROMol']
+      args: ['int']
+      exec: |
+        $i0->setAtomBookmark($i1, $a0);
+        $o0 = $i0;
+  - void replaceAtomBookmark(RDKit::Atom *at, int mark):
+      inputs: ['RDKit::ROMol', 'RDKit::Atom']
+      outputs: ['RDKit::ROMol']
+      args: ['int']
+      exec: |
+        $i0->replaceAtomBookmark($i1, $a0);
+        $o0 = $i0;
+  # - Atom * getAtomWithBookmark(int mark)
+  # - Atom * getUniqueAtomWithBookmark(int mark)
+  - ATOM_PTR_LIST & getAllAtomsWithBookmark(int mark)
+  - void clearAtomBookmark(int mark)
+  - void clearAtomBookmark(int mark, const RDKit::Atom *atom)
+  - void clearAllAtomBookmarks()
+  - bool hasAtomBookmark(int mark) const
+  - ATOM_BOOKMARK_MAP * getAtomBookmarks()
+  - void setBondBookmark(RDKit::Bond *bond, int mark):
+      inputs: ['RDKit::ROMol', 'RDKit::Bond']
+      outputs: ['RDKit::ROMol']
+      args: ['int']
+      exec: |
+        $i0->setBondBookmark($i1, $a0);
+        $o0 = $i0;
+  # - RDKit::Bond * getBondWithBookmark(int mark)
+  # - RDKit::Bond * getUniqueBondWithBookmark(int mark)
+  - BOND_PTR_LIST & getAllBondsWithBookmark(int mark)
+  - void clearBondBookmark(int mark)
+  - void clearBondBookmark(int mark, const RDKit::Bond *bond)
+  - void clearAllBondBookmarks()
+  - bool hasBondBookmark(int mark) const
+  - BOND_BOOKMARK_MAP * getBondBookmarks()
+  - RDKit::Conformer & getConformer(int id):
+      inputs: ['RDKit::ROMol']
+      outputs: ['bundle<Conformer,ROMol>']
+      args: ['int']
+      exec: |
+        RDKit::Conformer *conf = new RDKit::Conformer();
+        *conf = $i0->getConformer($a0);
+        $o0 = BUNDLE(conf, $i0);
+  - unbundle_conformer:
+      inputs: ['bundle<Conformer,ROMol>']
+      outputs: ['RDKit::ROMol']
+      exec: |
+        $o0 = (RDKit::ROMol *)$i0->inactive;
+        delete $i0;
+  - void removeConformer(unsigned int id)
+  - void clearConformers()
+  - unsigned int addConformer(RDKit::Conformer *conf, bool assignId):
+      inputs: ['RDKit::ROMol', 'RDKit::Conformer']
+      outputs: ['RDKit::ROMol']
+      args: ['bool']
+      exec: |
+        $i0->addConformer($i1, $a0);
+        $o0 = $i0;
+  - unsigned int getNumConformers() const
+  - RingInfo * getRingInfo() const
+  - ADJ_ITER_PAIR getAtomNeighbors(RDKit::Atom *at) const
+  - OBOND_ITER_PAIR getAtomBonds(RDKit::Atom *at) const
+  - ATOM_ITER_PAIR getVertices()
+  - BOND_ITER_PAIR getEdges()
+  - ATOM_ITER_PAIR getVertices() const
+  - BOND_ITER_PAIR getEdges() const
+  - const MolGraph & getTopology() const
+  - AtomIterator beginAtoms()
+  - ConstAtomIterator beginAtoms() const
+  - AtomIterator endAtoms()
+  - ConstAtomIterator endAtoms() const
+  - BondIterator beginBonds()
+  - ConstBondIterator beginBonds() const
+  - BondIterator endBonds()
+  - ConstBondIterator endBonds() const
+  - AromaticAtomIterator beginAromaticAtoms()
+  - ConstAromaticAtomIterator beginAromaticAtoms() const
+  - AromaticAtomIterator endAromaticAtoms()
+  - ConstAromaticAtomIterator endAromaticAtoms() const
+  - HeteroatomIterator beginHeteros()
+  - ConstHeteroatomIterator beginHeteros() const
+  - HeteroatomIterator endHeteros()
+  - ConstHeteroatomIterator endHeteros() const
+  - QueryAtomIterator beginQueryAtoms(QueryAtom const *query)
+  - ConstQueryAtomIterator beginQueryAtoms(QueryAtom const *) const
+  - QueryAtomIterator endQueryAtoms()
+  - ConstQueryAtomIterator endQueryAtoms() const
+  - MatchingAtomIterator beginMatchingAtoms(bool(*query)(RDKit::Atom *))
+  - ConstMatchingAtomIterator beginMatchingAtoms(bool(*query)(const RDKit::Atom *)) const
+  - MatchingAtomIterator endMatchingAtoms()
+  - ConstMatchingAtomIterator endMatchingAtoms() const
+  - ConformerIterator beginConformers()
+  - ConformerIterator endConformers()
+  - ConstConformerIterator beginConformers() const
+  - ConstConformerIterator endConformers() const
+  - void clearComputedProps(bool includeRings) const
+  - void updatePropertyCache(bool strict)
+  - bool needsUpdatePropertyCache() const
+  - void debugMol(std::ostream &str) const
+  # - Atom * operator[](const vertex_descriptor &v)
+  # - const Atom * operator[](const vertex_descriptor &v) const
+  # - Bond * operator[](const edge_descriptor &e)
+  # - const Bond * operator[](const edge_descriptor &e) const
+  - const std::vector< StereoGroup > & getStereoGroups() const
+  - CXXAtomIterator< MolGraph, RDKit::Atom * > atoms()
+  - CXXAtomIterator< const MolGraph, RDKit::Atom *const  > atoms() const
+  - CXXBondIterator< MolGraph, RDKit::Bond * > bonds()
+  - CXXBondIterator< const MolGraph, RDKit::Bond *const  > bonds() const
+  - RDKit::ROMol()
+  - RDKit::ROMol(const RDKit::ROMol &other, bool quickCopy, int confId)
+  - RDKit::ROMol(const std::string &binStr)
+  - RDKit::ROMol(const std::string &binStr, unsigned int propertyFlags)
+  name: RDKit::ROMol
+  static_methods: []
+  type: struct
+
+bundle<Bond,RWMol>:
+  type: bundle
+  name: bundle<Bond,RWMol>
+  active: RDKit::Bond
+  inactive: RDKit::RWMol
+
+struct_RDKit::RWMol:
+  default_destructor: false
+  headers:
+  - <GraphMol/RWMol.h>
+  methods:
+  - unsigned int addAtom(bool updateLabel)
+  - add_atom_copy:
+      inputs: ['RDKit::RWMol', 'RDKit::Atom']
+      outputs: ['RDKit::RWMol', 'RDKit::Atom']
+      args: ['bool']
+      exec: |
+        $i0->addAtom($i1, $a0, false);
+        $o0 = $i0;
+        $o1 = $i1;
+  - add_atom_owner:
+      inputs: ['RDKit::RWMol', 'RDKit::Atom']
+      outputs: ['RDKit::RWMol']
+      args: ['bool']
+      exec: |
+        $i0->addAtom($i1, $a0, true);
+        $o0 = $i0;
+  - void replaceAtom(unsigned int idx, RDKit::Atom *atom, bool updateLabel, bool preserveProps)
+  - void setActiveAtom(RDKit::Atom *atom)
+  - void setActiveAtom(unsigned int idx)
+  - void removeAtom(unsigned int idx)
+  - void removeAtom(RDKit::Atom *atom)
+  - unsigned int addBond(unsigned int beginAtomIdx, unsigned int endAtomIdx, RDKit::Bond::BondType order)
+  - unsigned int addBond(RDKit::Atom *beginAtom, RDKit::Atom *endAtom, RDKit::Bond::BondType order)
+  - add_bond_copy:
+      inputs: ['RDKit::RWMol', 'RDKit::Bond']
+      outputs: ['RDKit::RWMol', 'RDKit::Bond']
+      exec: |
+        $i0->addBond($i1, false);
+        $o0 = $i0;
+        $o1 = $i1;
+  - add_bond_owner:
+      inputs: ['RDKit::RWMol', 'RDKit::Bond']
+      outputs: ['RDKit::RWMol']
+      exec: |
+        $i0->addBond($i1, true);
+        $o0 = $i0;
+  - RDKit::Bond * createPartialBond(unsigned int beginAtomIdx, RDKit::Bond::BondType order):
+      inputs: ['RDKit::RWMol']
+      outputs: ['bundle<Bond,RWMol>']
+      args: ['uint32_t', 'RDKit::Bond::BondType']
+      exec: |
+        RDKit::Bond *bond = $i0->createPartialBond($a0, $a1);
+        $o0 = BUNDLE(bond, $i0);
+  - unbundle_bond:
+      inputs: ['bundle<Bond,RWMol>']
+      outputs: ['RDKit::RWMol']
+      exec: |
+        $o0 = (RDKit::RWMol *)$i0->inactive;
+        delete $i0;
+  - unsigned int finishPartialBond(unsigned int endAtomIdx, int bondBookmark, RDKit::Bond::BondType order)
+  - void removeBond(unsigned int beginAtomIdx, unsigned int endAtomIdx)
+  - void replaceBond(unsigned int idx, RDKit::Bond *bond, bool preserveProps)
+  - void setStereoGroups(std::vector<StereoGroup> &&stereo_groups)
+  - void clear()
+  - void beginBatchEdit()
+  - void rollbackBatchEdit()
+  - void commitBatchEdit()
+  - RDKit::RWMol():
+      outputs: ['RDKit::RWMol']
+      exec: |
+        $o0 = new RDKit::RWMol();
+  - destructor:
+      inputs: ['RDKit::RWMol']
+      exec: |
+        delete $i0;
+  - void insertMol(const RDKit::ROMol &other)
+  name: RDKit::RWMol
+  static_methods: []
+  type: struct
+
+struct_RDKit::Atom:
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - <GraphMol/Atom.h>
+  methods:
+  - RDKit::Atom()
+  - RDKit::Atom(unsigned int num)
+  - RDKit::Atom(const std::string &what)
+  - RDKit::Atom(const RDKit::Atom &other)
+  - RDKit::Atom & operator=(const RDKit::Atom &other):
+      inputs: ['RDKit::Atom', 'RDKit::Atom']
+      outputs: ['RDKit::Atom', 'RDKit::Atom']
+      exec: |
+        $i0->operator=(*$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+  - RDKit::Atom * copy() const:
+      inputs: ['RDKit::Atom']
+      outputs: ['RDKit::Atom', 'RDKit::Atom']
+      exec: |
+        $o0 = $i0->copy();
+        $o1 = $i0;
+  - int getAtomicNum() const
+  - void setAtomicNum(int newNum)
+  - std::string getSymbol() const
+  - bool hasOwningMol() const
+  - void getOwningMol() const # mark as void so we don't take ownership of the object
+  - unsigned int getIdx() const
+  - void setIdx(unsigned int index)
+  - class U setIdx(const U index)
+  - unsigned int getDegree() const
+  - unsigned int getTotalDegree() const
+  - unsigned int getTotalNumHs(bool includeNeighbors) const
+  - unsigned int getTotalValence() const
+  - unsigned int getNumImplicitHs() const
+  - int getExplicitValence() const
+  - int getImplicitValence() const
+  - unsigned int getNumRadicalElectrons() const
+  - void setNumRadicalElectrons(unsigned int num)
+  - int getFormalCharge() const
+  - void setFormalCharge(int what)
+  - void setNoImplicit(bool what)
+  - bool getNoImplicit() const
+  - void setNumExplicitHs(unsigned int what)
+  - unsigned int getNumExplicitHs() const
+  - void setIsAromatic(bool what)
+  - bool getIsAromatic() const
+  - double getMass() const
+  - void setIsotope(unsigned int what)
+  - unsigned int getIsotope() const
+  - void setChiralTag(RDKit::Atom::ChiralType what)
+  - void invertChirality()
+  - RDKit::Atom::ChiralType getChiralTag() const
+  - void setHybridization(RDKit::Atom::HybridizationType what)
+  - RDKit::Atom::HybridizationType getHybridization() const
+  - bool hasQuery() const
+  - void setQuery(QUERYATOM_QUERY *what)
+  - QUERYATOM_QUERY * getQuery() const
+  - void expandQuery(QUERYATOM_QUERY *what, Queries::CompositeQueryType how, bool maintainOrder)
+  - bool Match(const RDKit::Atom *what) const
+  - int getPerturbationOrder(const INT_LIST &probe) const
+  - void updatePropertyCache(bool strict)
+  - bool needsUpdatePropertyCache() const
+  - int calcExplicitValence(bool strict)
+  - int calcImplicitValence(bool strict)
+  - AtomMonomerInfo * getMonomerInfo()
+  - const AtomMonomerInfo * getMonomerInfo() const
+  - void setMonomerInfo(AtomMonomerInfo *info)
+  - void setAtomMapNum(int mapno, bool strict)
+  - int getAtomMapNum() const
+  name: RDKit::Atom
+  static_methods: []
+  type: struct
+
+struct_RDKit::Bond:
+  default_destructor: true
+  alloc_with_new: true
+  headers:
+  - <GraphMol/Bond.h>
+  methods:
+  - RDKit::Bond()
+  - RDKit::Bond(RDKit::Bond::BondType bT)
+  - RDKit::Bond(const RDKit::Bond &other)
+  - RDKit::Bond & operator=(const RDKit::Bond &other):
+      inputs: ['RDKit::Bond', 'RDKit::Bond']
+      outputs: ['RDKit::Bond', 'RDKit::Bond']
+      exec: |
+        $i0->operator=(*$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+  - RDKit::Bond * copy() const:
+      inputs: ['RDKit::Bond']
+      outputs: ['RDKit::Bond', 'RDKit::Bond']
+      exec: |
+        $o0 = $i0->copy();
+        $o1 = $i0;
+  - RDKit::Bond::BondType getBondType() const
+  - void setBondType(RDKit::Bond::BondType bT)
+  - double getBondTypeAsDouble() const
+  - double getValenceContrib(const RDKit::Atom *at) const
+  - void setIsAromatic(bool what)
+  - bool getIsAromatic() const
+  - void setIsConjugated(bool what)
+  - bool getIsConjugated() const
+  - bool hasOwningMol() const
+  - void getOwningMol() const # mark as void so we don't take ownership of the object
+  - void setOwningMol(RDKit::ROMol *other):
+      inputs: ['RDKit::Bond', 'RDKit::ROMol']
+      outputs: ['RDKit::ROMol']
+      exec: |
+        $i0->setOwningMol($i1);
+        $o0 = $i1;
+  - void setOwningMol(RDKit::ROMol &other):
+      inputs: ['RDKit::Bond', 'RDKit::ROMol']
+      outputs: ['RDKit::ROMol']
+      exec: |
+        $i0->setOwningMol(*$i1);
+        $o0 = $i1;
+  - unsigned int getIdx() const
+  - void setIdx(unsigned int index)
+  - unsigned int getBeginAtomIdx() const
+  - unsigned int getEndAtomIdx() const
+  - unsigned int getOtherAtomIdx(unsigned int thisIdx) const
+  - void setBeginAtomIdx(unsigned int what)
+  - void setEndAtomIdx(unsigned int what)
+  - void setBeginAtom(RDKit::Atom *at)
+  - void setEndAtom(RDKit::Atom *at)
+  # - RDKit::Atom * getBeginAtom() const
+  # - RDKit::Atom * getEndAtom() const
+  # - RDKit::Atom * getOtherAtom(RDKit::Atom const *what) const
+  - bool hasQuery() const
+  - void setQuery(QUERYBOND_QUERY *what)
+  - QUERYBOND_QUERY * getQuery() const
+  - void expandQuery(QUERYBOND_QUERY *what, Queries::CompositeQueryType how, bool maintainOrder)
+  - bool Match(RDKit::Bond const *what) const
+  - void setBondDir(RDKit::Bond::BondDir what)
+  - RDKit::Bond::BondDir getBondDir() const
+  - void setStereo(RDKit::Bond::BondStereo what)
+  - RDKit::Bond::BondStereo getStereo() const
+  - void setStereoAtoms(unsigned int bgnIdx, unsigned int endIdx)
+  - const INT_VECT & getStereoAtoms() const
+  - INT_VECT & getStereoAtoms()
+  - void updatePropertyCache(bool strict)
+  name: RDKit::Bond
+  static_methods: []
+  type: struct
+
+
+struct_RDKit::Conformer:
+  headers:
+  - <GraphMol/Conformer.h>
+  default_destructor: true
+  alloc_with_new: true
+  methods:
+  - RDKit::Conformer()
+  - RDKit::Conformer(unsigned int numAtoms)
+  - RDKit::Conformer(const RDKit::Conformer &other)
+  - RDKit::Conformer & operator=(const RDKit::Conformer &other):
+      inputs: ['RDKit::Conformer', 'RDKit::Conformer']
+      outputs: ['RDKit::Conformer', 'RDKit::Conformer']
+      exec: |
+        $i0->operator=(*$i1);
+        $o0 = $i0;
+        $o1 = $i1;
+  - void resize(unsigned int size)
+  - void reserve(unsigned int size)
+  - bool hasOwningMol() const
+  # - ROMol & getOwningMol() const
+  - const RDGeom::POINT3D_VECT & getPositions() const
+  - RDGeom::POINT3D_VECT & getPositions()
+  # - const RDGeom::Point3D & getAtomPos(unsigned int atomId) const
+  - void getAtomPos(unsigned int atomId) const # don't take ownership
+  - class U getAtomPos(U atomId) const
+  # - RDGeom::Point3D & getAtomPos(unsigned int atomId)
+  - class U getAtomPos(U atomId)
+  - void setAtomPos(unsigned int atomId, const RDGeom::Point3D &position)
+  - class U setAtomPos(U atomId, const RDGeom::Point3D &position)
+  - unsigned int getId() const
+  - void setId(unsigned int id)
+  - unsigned int getNumAtoms() const
+  - bool is3D() const
+  - void set3D(bool v)
+  name: RDKit::Conformer
+  static_methods: []
+  type: struct
+
+struct_RDGeom::Point3D:
+  headers:
+  - <Geometry/point.h>
+  alloc_with_new: true
+  default_destructor: true
+  methods:
+  - RDGeom::Point3D()
+  - RDGeom::Point3D(double xv, double yv, double zv)
+  - RDGeom::Point3D(const RDGeom::Point3D &other)
+  # - Point * copy() const
+  - unsigned int dimension() const
+  - double operator[](unsigned int i) const
+  - double & operator[](unsigned int i):
+      inputs: ['RDGeom::Point3D']
+      outputs: ['RDGeom::Point3D']
+      args: ['uint32_t', 'double']
+      exec: |
+        $i0->operator[]($a0) = $a1;
+        $o0 = $i0;
+  # - RDGeom::Point3D & operator=(const RDGeom::Point3D &other)
+  # - RDGeom::Point3D & operator+=(const RDGeom::Point3D &other)
+  # - RDGeom::Point3D & operator-=(const RDGeom::Point3D &other)
+  # - RDGeom::Point3D & operator*=(double scale)
+  # - RDGeom::Point3D & operator/=(double scale)
+  # - RDGeom::Point3D operator-() const
+  - void normalize()
+  - double length() const
+  - double lengthSq() const
+  - double dotProduct(const RDGeom::Point3D &other) const
+  - double angleTo(const RDGeom::Point3D &other) const
+  - double signedAngleTo(const RDGeom::Point3D &other) const
+  # - RDGeom::Point3D directionVector(const RDGeom::Point3D &other) const
+  # - RDGeom::Point3D crossProduct(const RDGeom::Point3D &other) const
+  # - RDGeom::Point3D getPerpendicular() const
+  name: RDGeom::Point3D
+  static_methods: []
+  type: struct

@@ -1,0 +1,197 @@
+
+typedef_SkScalar:
+  headers:
+  - SkScalar.h
+  name: SkScalar
+  type: typedef
+  value: float
+
+enum_SkPathDirection:
+  headers:
+  - SkPathTypes.h
+  name: SkPathDirection
+  type: enum
+  values:
+  - kCW
+  - kCCW
+
+enum_SkPath::AddPathMode:
+  headers:
+  - SkPath.h
+  name: SkPath::AddPathMode
+  type: enum
+  values:
+  - kAppend_AddPathMode
+  - kExtend_AddPathMode
+
+struct_SkRect:
+  type: struct
+  name: SkRect
+  default_destructor: true
+  headers:
+  - include/core/SkRect.h
+  static_methods:
+  - SkRect MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
+
+struct_SkRRect:
+  headers:
+  - SkRRect.h
+  type: struct
+  name: SkRRect
+  default_destructor: true
+  static_methods:
+  - make:
+      inputs: ['SkRect']
+      outputs: ['SkRRect', 'SkRect']
+      args: [
+        'SkScalar','SkScalar','SkScalar','SkScalar',
+        'SkScalar','SkScalar','SkScalar','SkScalar'
+      ]
+      exec: |
+        $o0 = MAKE(SkRRect);
+        *$o0 = SkRRect();
+        SkVector radii[4] = {
+          SkPoint::Make($a0,$a1),
+          SkPoint::Make($a2,$a3),
+          SkPoint::Make($a4,$a5),
+          SkPoint::Make($a6,$a7)
+        };
+        $o0->setRectRadii(*$i0, radii);
+        $o1 = $i0;
+
+struct_SkMatrix:
+  headers:
+  - SkMatrix.h
+  default_destructor: true
+  methods:
+  # (part of case 2)
+  - void postTranslate(SkScalar, SkScalar)
+  - void setAffine(SkScalar[6]):
+      inputs: ['SkMatrix']
+      outputs: ['SkMatrix']
+      args: ['SkScalar[6]']
+      exec: |
+        $i0->setAffine($a0);
+        $o0 = $i0;
+  - void set9(SkScalar[9]):
+      inputs: ['SkMatrix']
+      outputs: ['SkMatrix']
+      args: ['SkScalar[9]']
+      exec: |
+        $i0->set9($a0);
+        $o0 = $i0;
+  name: SkMatrix
+  type: struct
+  static_methods:
+  # case 0
+  - SkMatrix I()
+  # case 1
+  - SkMatrix Translate(SkScalar, SkScalar)
+  # case 2
+  - SkMatrix Scale(SkScalar, SkScalar)
+
+# FuzzNicePath
+struct_SkPath:
+  type: struct
+  name: SkPath
+  default_destructor: true
+  headers:
+  - include/core/SkPath.h
+  methods:
+  - SkPath()
+  - void moveTo(SkScalar, SkScalar)
+  - void rMoveTo(SkScalar, SkScalar)
+  - void lineTo(SkScalar, SkScalar)
+  - void rLineTo(SkScalar, SkScalar)
+  - void quadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  - void rQuadTo(SkScalar, SkScalar, SkScalar, SkScalar)
+  - void conicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void rConicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void cubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void rCubicTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void arcTo(SkScalar, SkScalar, SkScalar, SkScalar, SkScalar)
+  - void arcTo(SkRect, SkScalar, SkScalar, bool)
+  - void close()
+  - void addRect(SkRect, SkPathDirection)
+  - void addRect(SkRect, SkPathDirection, unsigned int)
+  - void addOval(SkRect, SkPathDirection)
+  - void addOval(SkRect, SkPathDirection, unsigned int)
+  - void addCircle(SkScalar, SkScalar, SkScalar, SkPathDirection)
+  - void addArc(SkRect, SkScalar, SkScalar)
+  - void addRoundRect(SkRect, SkScalar, SkScalar, SkPathDirection)
+  - void addRRect(SkRRect, SkPathDirection)
+  - void addRRect(SkRRect, SkPathDirection, unsigned int)
+  - void addPath(SkPath, SkMatrix, SkPath::AddPathMode)
+  - add_self_path_matrix:
+      inputs: ['SkPath', 'SkMatrix']
+      outputs: ['SkPath', 'SkMatrix']
+      args: ['SkPath::AddPathMode']
+      exec: |
+        $i0->addPath(*$i0, *$i1, $a0);
+        $o0 = $i0;
+        $o1 = $i1;
+  - void reverseAddPath(SkPath)
+  - add_self_path:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      exec: |
+        $i0->addPath(*$i0);
+        $o0 = $i0;
+  - add_self_path_reverse:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      exec: |
+        $i0->reverseAddPath(*$i0);
+        $o0 = $i0;
+  - offset_self:
+      inputs: ['SkPath']
+      outputs: ['SkPath']
+      args: ['SkScalar', 'SkScalar']
+      exec: |
+        $i0->offset($a0, $a1, $i0);
+        $o0 = $i0;
+  - void offset(SkScalar, SkScalar, SkPath *)
+  - transform_self:
+      inputs: ['SkPath', 'SkMatrix']
+      outputs: ['SkPath', 'SkMatrix']
+      exec: |
+        $i0->transform(*$i1, $i0);
+        $o0 = $i0;
+        $o1 = $i1;
+  - void transform(SkMatrix, SkPath *)
+  - void setLastPt(SkScalar, SkScalar)
+
+struct_SkRegion:
+  type: struct
+  name: SkRegion
+  default_destructor: true
+  headers:
+  - include/core/SkRegion.h
+  methods:
+  - SkRegion()
+  - bool op(const SkIRect& rect, SkRegion::Op op)
+  - int computeRegionComplexity()
+  - bool setPath(const SkPath& path, const SkRegion& clip)
+  - bool isComplex()
+  - bool contains(int32_t x, int32_t y)
+
+struct_SkIRect:
+  type: struct
+  name: SkIRect
+  default_destructor: true
+  headers:
+  - include/core/SkRect.h
+  static_methods:
+  - SkIRect MakeLTRB(int32_t l, int32_t t, int32_t r, int32_t b)
+
+enum_SkRegion::Op:
+  type: enum
+  name: SkRegion::Op
+  values:
+  - kDifference_Op
+  - kIntersect_Op
+  - kUnion_Op
+  - kXOR_Op
+  - kReverseDifference_Op
+  - kReplace_Op
+

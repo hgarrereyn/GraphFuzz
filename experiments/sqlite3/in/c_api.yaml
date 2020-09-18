@@ -1,0 +1,9 @@
+headers:
+- sqlite3.h
+methods:
+- int sqlite3_open(const char *filename, OUT(sqlite3 *) db)
+- int sqlite3_open(VAL(":memory:"), OUT(sqlite3 *) db)
+- int sqlite3_close(DEL(sqlite3 *))
+- int sqlite3_prepare_v2(sqlite3 *db, const char *zSql, int nByte, OUT(sqlite3_stmt *), VAL(0))
+- int sqlite3_step(sqlite3_stmt *)
+- int sqlite3_finalize(DEL(sqlite3_stmt *))

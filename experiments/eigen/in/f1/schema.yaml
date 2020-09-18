@@ -1,0 +1,72 @@
+
+
+struct_MatrixXf:
+  headers:
+  - <Eigen/Dense>
+  default_destructor: true
+  type: struct
+  name: Eigen::MatrixXf
+  methods:
+  - Eigen::MatrixXf(int, int)
+  - set:
+      inputs: ['Eigen::MatrixXf']
+      outputs: ['Eigen::MatrixXf']
+      args: ['int', 'int', 'float']
+      exec: |
+        $i0->operator()($a0, $a1) = $a2;
+        $o0 = $i0;
+  - void operator+=(Eigen::MatrixXf)
+  - void operator-=(Eigen::MatrixXf)
+  - void operator*=(float)
+  - void operator*=(Eigen::MatrixXf)
+  - void operator*=(Eigen::VectorXf)
+  - void operator/=(float)
+  - void resize(int, int)
+  - void transpose()
+  - void conjugate()
+  - void adjoint()
+  - void transposeInPlace()
+  - float sum()
+  - float prod()
+  - float mean()
+  - float minCoeff()
+  - float maxCoeff()
+  - float trace()
+  static_methods:
+  - Eigen::MatrixXf Eigen::Matrix2f()
+  - Eigen::MatrixXf Eigen::Matrix3f()
+  - Eigen::MatrixXf Eigen::Matrix4f()
+
+struct_VectorXf:
+  headers:
+  - <Eigen/Dense>
+  default_destructor: true
+  type: struct
+  name: Eigen::VectorXf
+  methods:
+  - Eigen::VectorXf(int)
+  - set:
+      inputs: ['Eigen::VectorXf']
+      outputs: ['Eigen::VectorXf']
+      args: ['int', 'float']
+      exec: |
+        $i0->operator()($a0) = $a1;
+        $o0 = $i0;
+  - void operator+=(Eigen::VectorXf)
+  - void operator-=(Eigen::VectorXf)
+  - void operator*=(float)
+  - void operator*=(Eigen::MatrixXf)
+  - void operator*=(Eigen::VectorXf)
+  - void operator/=(float)
+  - void resize(int)
+  - void transpose()
+  - float sum()
+  - float prod()
+  - float mean()
+  - float minCoeff()
+  - float maxCoeff()
+  - float trace()
+  static_methods:
+  - Eigen::VectorXf Eigen::Vector2f()
+  - Eigen::VectorXf Eigen::Vector3f()
+  - Eigen::VectorXf Eigen::Vector4f()

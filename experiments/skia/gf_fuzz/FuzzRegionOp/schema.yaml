@@ -1,0 +1,33 @@
+
+struct_SkRegion:
+  type: struct
+  name: SkRegion
+  default_destructor: true
+  headers:
+  - include/core/SkRegion.h
+  methods:
+  - SkRegion()
+  - bool op(const SkIRect& rect, SkRegion::Op op)
+  - int computeRegionComplexity()
+
+struct_SkIRect:
+  type: struct
+  name: SkIRect
+  default_destructor: true
+  headers:
+  - include/core/SkRect.h
+  methods:
+  - void sort()
+  static_methods:
+  - SkIRect MakeLTRB(int32_t l, int32_t t, int32_t r, int32_t b)
+
+enum_SkRegion::Op:
+  type: enum
+  name: SkRegion::Op
+  values:
+  - kDifference_Op
+  - kIntersect_Op
+  - kUnion_Op
+  - kXOR_Op
+  - kReverseDifference_Op
+  - kReplace_Op

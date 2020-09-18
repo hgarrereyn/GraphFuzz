@@ -1,0 +1,41 @@
+enum_PointType:
+  headers:
+  - point.h
+  name: PointType
+  type: enum
+  values:
+  - POINT_SMALL
+  - POINT_LARGE
+  - POINT_CRASH
+struct_Point:
+  default_destructor: true
+  headers:
+  - point.h
+  methods:
+  - Point(point_coord _x, point_coord _y)
+  - void set(PointType _typ)
+  - void offset(point_coord _x, point_coord _y)
+  name: Point
+  static_methods:
+  - Point MakeZero()
+  type: struct
+struct_Rect:
+  default_destructor: true
+  headers:
+  - rect.h
+  methods:
+  - Rect()
+  - void setA(Point &p)
+  - void setB(Point &p)
+  - void setVal(float v)
+  - int area()
+  - void fuzzFunc(int z)
+  name: Rect
+  static_methods: []
+  type: struct
+typedef_point_coord:
+  headers:
+  - point.h
+  name: point_coord
+  type: typedef
+  value: int

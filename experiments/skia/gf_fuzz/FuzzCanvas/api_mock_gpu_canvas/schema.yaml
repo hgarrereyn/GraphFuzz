@@ -1,0 +1,42 @@
+include:
+- "../schema.yaml"
+
+bundle<SkCanvas,SkSurface>:
+  type: bundle
+  name: bundle<SkCanvas,SkSurface>
+  active: SkCanvas
+  inactive: SkSurface
+
+struct_foo:
+  headers:
+  - SkSurface.h
+  - include/gpu/GrDirectContext.h
+  - include/gpu/gl/GrGLFunctions.h
+  - src/gpu/GrDirectContextPriv.h
+  - src/gpu/gl/GrGLGpu.h
+  - src/gpu/gl/GrGLUtil.h
+  - tools/gpu/GrContextFactory.h
+  type: struct
+  name: foo
+  static_methods:
+  - api_mock_gpu_canvas:
+      outputs: ['bundle<SkCanvas,SkSurface>']
+      exec: |
+        sk_sp<SkSurface> *parent = MAKE(sk_sp<SkSurface>);
+
+        constexpr SkISize kCanvasSize = {128, 160};
+
+        sk_gpu_test::GrContextFactory f;
+        GrDirectContext *gpu_context = f.get(sk_gpu_test::GrContextFactory::kMock_ContextType);
+
+        *parent = SkSurface::MakeRenderTarget(
+            gpu_context,
+            SkBudgeted::kNo,
+            SkImageInfo::Make(kCanvasSize, kRGBA_8888_SkColorType, kPremul_SkAlphaType));
+
+        SkCanvas *canvas = parent->get()->getCanvas();
+        $o0 = BUNDLE(canvas, parent);
+  - delete:
+      inputs: ['bundle<SkCanvas,SkSurface>']
+      exec: |
+        delete $i0;

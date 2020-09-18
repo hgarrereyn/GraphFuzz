@@ -1,0 +1,73 @@
+simple_int:
+  type: simple
+  context_size: 4
+  name: int
+simple_float:
+  type: simple
+  context_size: 4
+  name: float
+simple_double:
+  type: simple
+  context_size: 8
+  name: double
+simple_void:
+  type: ignore
+  name: void
+simple_char:
+  type: simple
+  context_size: 1
+  name: char
+  print_cast: int
+simple_size_t:
+  type: simple
+  context_size: 8
+  name: size_t
+
+simple_bool:
+  type: simple
+  context_size: 1
+  name: bool
+  print_cast: int
+  load: "    {var_type} {arg_name} = *(static_cast<const char *>(context + {context_offset})) & 1;\n"
+  load_arr: |
+    {var_type} {arg_name}[{count}];
+    for (int i = 0; i < {count}; ++i) {arg_name}[i] = *(static_cast<const char *>(context + {context_offset} + i)) & 1;
+
+simple_int8_t:
+  type: simple
+  context_size: 1
+  name: int8_t
+  print_cast: int
+simple_int16_t:
+  type: simple
+  context_size: 2
+  name: int16_t
+simple_int32_t:
+  type: simple
+  context_size: 4
+  name: int32_t
+simple_int64_t:
+  type: simple
+  context_size: 8
+  name: int64_t
+simple_uint8_t:
+  type: simple
+  context_size: 1
+  name: uint8_t
+  print_cast: int
+simple_uint16_t:
+  type: simple
+  context_size: 2
+  name: uint16_t
+simple_uint32_t:
+  type: simple
+  context_size: 4
+  name: uint32_t
+simple_uint64_t:
+  type: simple
+  context_size: 8
+  name: uint64_t
+simple_char16_t:
+  type: simple
+  context_size: 2
+  name: char16_t
