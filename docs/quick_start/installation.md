@@ -18,7 +18,7 @@ git clone https://github.com/ForAllSecure/GraphFuzz.git
 `libgraphfuzz` is the runtime graph mutation library that is linked into your fuzzer harness. It is written in C++ and uses a standard CMake build configuration:
 
 ```bash
-cd GraphFuzz/core
+cd GraphFuzz
 mkdir build
 cd build
 cmake ..
