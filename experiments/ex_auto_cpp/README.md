@@ -10,7 +10,7 @@ This folder contains an example of using the gfuzz doxygen extractor to automati
 Run the doxygen extractor with:
 
 ```sh
-$ gfuzz doxygen --inputs ./in/src --output ./in/doxygen_output
+$ gfuzz doxygen --inputs ./in/lib --output ./in/doxygen_output
 ```
 
 This step will launch a new docker container with doxygen and set up the proper Doxyfile to parse the target. The output xml will be saved to `./in/doxygen_output/xml`.
