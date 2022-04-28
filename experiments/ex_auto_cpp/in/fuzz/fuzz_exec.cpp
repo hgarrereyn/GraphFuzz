@@ -42,11 +42,11 @@ extern "C" void shim_0(void **in_ref, void **out_ref, const char *context) {
     int _a1;
     memcpy(&_a1, context + 4, sizeof(int));
     Point *_o0;
-	_o0 = MAKE(Point);
-	Point ref = Point(_a0, _a1);
-	*_o0 = ref;
-	
-	                
+    _o0 = MAKE(Point);
+    Point ref = Point(_a0, _a1);
+    *_o0 = ref;
+    
+                    
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -61,9 +61,9 @@ extern "C" void shim_1(void **in_ref, void **out_ref, const char *context) {
         case 2: _a0 = PointType::POINT_CRASH; break;
     }
     Point *_o0;
-	_i0->set(_a0);
-	_o0 = _i0;
-	                    
+    _i0->set(_a0);
+    _o0 = _i0;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -76,9 +76,9 @@ extern "C" void shim_2(void **in_ref, void **out_ref, const char *context) {
     int _a1;
     memcpy(&_a1, context + 4, sizeof(int));
     Point *_o0;
-	_i0->offset(_a0, _a1);
-	_o0 = _i0;
-	                    
+    _i0->offset(_a0, _a1);
+    _o0 = _i0;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -86,11 +86,11 @@ extern "C" void shim_2(void **in_ref, void **out_ref, const char *context) {
 /* CPPScope(name=(auto) Point::Point MakeZero();) */
 extern "C" void shim_3(void **in_ref, void **out_ref, const char *context) {
     Point *_o0;
-	_o0 = MAKE(Point);
-	Point ref = Point::MakeZero();
-	*_o0 = ref;
-	
-	                
+    _o0 = MAKE(Point);
+    Point ref = Point::MakeZero();
+    *_o0 = ref;
+    
+                    
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -98,20 +98,20 @@ extern "C" void shim_3(void **in_ref, void **out_ref, const char *context) {
 /* CPPScope(name=(auto) Point::~Point();) */
 extern "C" void shim_4(void **in_ref, void **out_ref, const char *context) {
     Point *_i0 = reinterpret_cast<Point *>(in_ref[0]);
-	free(_i0);
-	
-	                
+    free(_i0);
+    
+                    
 }
 
 
 /* CPPScope(name=(auto) Rect::Rect();) */
 extern "C" void shim_5(void **in_ref, void **out_ref, const char *context) {
     Rect *_o0;
-	_o0 = MAKE(Rect);
-	Rect ref = Rect();
-	*_o0 = ref;
-	
-	                
+    _o0 = MAKE(Rect);
+    Rect ref = Rect();
+    *_o0 = ref;
+    
+                    
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -122,10 +122,10 @@ extern "C" void shim_6(void **in_ref, void **out_ref, const char *context) {
     Point *_i1 = reinterpret_cast<Point *>(in_ref[1]);
     Rect *_o0;
     Point *_o1;
-	_i0->setA(*_i1);
-	_o0 = _i0;
-	_o1 = _i1;
-	                    
+    _i0->setA(*_i1);
+    _o0 = _i0;
+    _o1 = _i1;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
     out_ref[1] = reinterpret_cast<void *>(_o1);
 }
@@ -137,10 +137,10 @@ extern "C" void shim_7(void **in_ref, void **out_ref, const char *context) {
     Point *_i1 = reinterpret_cast<Point *>(in_ref[1]);
     Rect *_o0;
     Point *_o1;
-	_i0->setB(*_i1);
-	_o0 = _i0;
-	_o1 = _i1;
-	                    
+    _i0->setB(*_i1);
+    _o0 = _i0;
+    _o1 = _i1;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
     out_ref[1] = reinterpret_cast<void *>(_o1);
 }
@@ -152,9 +152,9 @@ extern "C" void shim_8(void **in_ref, void **out_ref, const char *context) {
     float _a0;
     memcpy(&_a0, context + 0, sizeof(float));
     Rect *_o0;
-	_i0->setVal(_a0);
-	_o0 = _i0;
-	                    
+    _i0->setVal(_a0);
+    _o0 = _i0;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -163,9 +163,9 @@ extern "C" void shim_8(void **in_ref, void **out_ref, const char *context) {
 extern "C" void shim_9(void **in_ref, void **out_ref, const char *context) {
     Rect *_i0 = reinterpret_cast<Rect *>(in_ref[0]);
     Rect *_o0;
-	_i0->area();
-	_o0 = _i0;
-	                    
+    _i0->area();
+    _o0 = _i0;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -176,9 +176,9 @@ extern "C" void shim_10(void **in_ref, void **out_ref, const char *context) {
     int _a0;
     memcpy(&_a0, context + 0, sizeof(int));
     Rect *_o0;
-	_i0->fuzzFunc(_a0);
-	_o0 = _i0;
-	                    
+    _i0->fuzzFunc(_a0);
+    _o0 = _i0;
+                        
     out_ref[0] = reinterpret_cast<void *>(_o0);
 }
 
@@ -186,9 +186,9 @@ extern "C" void shim_10(void **in_ref, void **out_ref, const char *context) {
 /* CPPScope(name=(auto) Rect::~Rect();) */
 extern "C" void shim_11(void **in_ref, void **out_ref, const char *context) {
     Rect *_i0 = reinterpret_cast<Rect *>(in_ref[0]);
-	free(_i0);
-	
-	                
+    free(_i0);
+    
+                    
 }
 
 

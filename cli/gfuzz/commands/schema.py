@@ -151,13 +151,8 @@ def run_infer(args):
     print(f'[*] Generated a schema with {len([k for k in info])} items.')
 
 
-def run_validate(args):
-    pass
-
-
 COMMANDS = {
     'infer': run_infer,
-    'validate': run_validate
 }
 
 
@@ -167,8 +162,6 @@ def register(parser):
     infer_parser = sub.add_parser('infer', help='Infer a schema from Doxygen xml.')
     infer_parser.add_argument('doxygen_xml', help='Path to a folder containing Doxygen xml.')
     infer_parser.add_argument('output', help='Path to output *.yaml file.')
-
-    validate_parser = sub.add_parser('validate', help='Validate a schema by compiling test programs.')
 
 
 def execute(args):

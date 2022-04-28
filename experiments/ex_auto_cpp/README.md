@@ -5,7 +5,21 @@ This folder contains an example of using the gfuzz doxygen extractor to automati
 
 # Overview
 
-(Note: make sure `gfuzz` (`graphfuzz/python/gfuzz`) is on your PATH.)
+_Note: schema inferrence with Doxygen is still very experimental._
+
+This example contains a simple mock-graphics API in `./in/lib`. We can use the `gfuzz doxygen` command to run `doxygen` on this source code and produce nice parseable xml with all of the identified C++ structs/types/enums. Then we can use `gfuzz schema infer` to convert this xml into the GraphFuzz YAML schema format and automatically build a fuzzer.
+
+To run this example (context: `GraphFuzz/examples`):
+1. Install the `gfuzz` cli and run `./ex_auto_cpp/make_schema.sh` to:
+    - Run `doxygen` in a docker container to produce xml
+    - Convert the xml into a harness schema
+    - Generate C++ source files from the harness schema
+2. Build and launch the docker container with: `./build ex_auto_cpp && ./run ex_auto_cpp`
+3. Inside the container run `cd fuzz && ./fuzz_exec` to start the fuzzer.
+
+# Details
+
+Here are the steps that `./make_schema.sh` performs:
 
 Run the doxygen extractor with:
 
@@ -27,46 +41,12 @@ Finally, we can generate the harness files with:
 $ gfuzz gen cpp ./in/auto_schema.yaml ./in/
 ```
 
----
+# Practicality
 
-Build and launch the docker container with:
-```sh
-$ cd graphfuzz/examples/auto_cpp
-$ gfuzz run .
-```
+It isn't always possible to infer correct usage of an endpoint with this kind of approach. For example, endpoints like `void doThing(void *p)` or `void process(int arr[], int size)` require further clarification:
 
-Inside the container, build the fuzzers (`fuzz_exec`, `fuzz_write`) with:
-```sh
-$ ./build_fuzzer.sh
-```
+- what does `void *p` point to? Can it be null?
+- is `int arr[]` an input or an output?
+- does `size` correlate with the size of `arr`?
 
-You can fuzz with the libFuzzer binary `fuzz_exec`:
-```sh
-$ ./fuzz_exec -fork=10 ... <standard libFuzzer args>
-```
-
-Once you have a crash, you can view it with `fuzz_write`:
-```sh
-$ ./fuzz_write ./crash-xxx
-```
-
-You can also minimize the crash with:
-```sh
-$ gfuzz min ./fuzz_exec ./crash-xxx
-```
-
-# Handling `assert()`'s
-
-In this example, `Rect::setVal(float)` will throw assertion errors on invalid arguments which is a common pattern for safe C++ code. In this case, we don't care about these assertion errors.
-
-To bypass this, you can supply a list of signal numbers that should be ignored with `--graphfuzz_catch`. For example, to catch SIGABRT (raised by `assert()`), we can run the fuzzer like:
-
-```sh
-$ ./fuzz_exec --graphfuzz_catch=6
-```
-
-In this mode, GraphFuzz will catch the error and cleanly exit the test case. However, this raises a new problem: we will suddenly hit a lot of memory leaks which triggers AddressSanitizer. To turn of leak detection, we can set `ASAN_OPTIONS` to `detect_leaks=0`, for example:
-
-```sh
-$ ASAN_OPTIONS=detect_leaks=0 ./fuzz_exec --graphfuzz_catch=6
-```
+In practice, we find that automatically generating schemas with this tool can be a useful first step to building a harness but unless you are working with toy examples (like this) you will likely need manual revision.

@@ -11,6 +11,7 @@ beautifulsoup4 = "^4.9.3"
 tqdm = "^4.62.0"
 pyparsing = "^2.4.7"
 dataclasses = {version = "^0.8", python = ">=3.6, <3.7"}
+lxml = "^4.8.0"
 
 [tool.poetry.dev-dependencies]
 
