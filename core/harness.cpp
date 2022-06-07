@@ -126,34 +126,34 @@ extern "C" int LLVMFuzzerInitialize(int *argc, char ***argv) {
 
         if (strncmp(opt, "--graphfuzz_catch=", 18) == 0) {
             graphfuzz_catch = readInts(opt + 18);
-            cout << "[*] GraphFuzz: will catch execeptions:" << endl;
+            cerr << "[*] GraphFuzz: will catch execeptions:" << endl;
             for (auto num : graphfuzz_catch) {
-                cout << "  - " << num << endl;
+                cerr << "  - " << num << endl;
             }
         }
 
         if (strncmp(opt, "--graphfuzz_scope_max_depth=", 28) == 0) {
             const char *val = opt + 28;
             graphfuzz_scope_max_depth = atoi(val);
-            cout << "[*] GraphFuzz: scope_max_depth = " << graphfuzz_scope_max_depth << endl;
+            cerr << "[*] GraphFuzz: scope_max_depth = " << graphfuzz_scope_max_depth << endl;
         }
 
         if (strncmp(opt, "--graphfuzz_context_mutation_prob=", 34) == 0) {
             const char *val = opt + 34;
             graphfuzz_context_mutation_prob = atof(val);
-            cout << "[*] GraphFuzz: context_mutation_prob = " << graphfuzz_context_mutation_prob << endl;
+            cerr << "[*] GraphFuzz: context_mutation_prob = " << graphfuzz_context_mutation_prob << endl;
         }
 
         if (strncmp(opt, "--graphfuzz_max_nodes=", 22) == 0) {
             const char *val = opt + 22;
             graphfuzz_max_nodes = atoi(val);
-            cout << "[*] GraphFuzz: max_nodes = " << graphfuzz_max_nodes << endl;
+            cerr << "[*] GraphFuzz: max_nodes = " << graphfuzz_max_nodes << endl;
         }
 
         if (strncmp(opt, "--graphfuzz_schema=", 19) == 0) {
             const char *val = opt + 19;
             graphfuzz_schema_path = val;
-            cout << "[*] GraphFuzz: schema path = " << graphfuzz_schema_path << endl;
+            cerr << "[*] GraphFuzz: schema path = " << graphfuzz_schema_path << endl;
         }
 
         // External mutation API.
@@ -176,7 +176,7 @@ extern "C" int LLVMFuzzerInitialize(int *argc, char ***argv) {
         }
 
         if (graphfuzz_trace_mutations) {
-            cout << "[*] GraphFuzz: tracing mutations..." << endl;
+            cerr << "[*] GraphFuzz: tracing mutations..." << endl;
         }
     }
 
@@ -187,7 +187,7 @@ extern "C" int LLVMFuzzerInitialize(int *argc, char ***argv) {
             graphfuzz_skip_validation,
             graphfuzz_prune_cache)) {
         if (graphfuzz_ignore_invalid) {
-            cout << "[!] Schema is invalid. Running anyways..." << endl;
+            cerr << "[!] Schema is invalid. Running anyways..." << endl;
         } else {
             cerr << "[!] Schema is invalid. (Run with \"--graphfuzz_ignore_invalid\" to continue with usable scopes)." << endl;
             exit(-1);
@@ -210,7 +210,7 @@ extern "C" int LLVMFuzzerInitialize(int *argc, char ***argv) {
 }
 
 extern "C" int MutateOne(const char *s_seed, const char *in_file, const char *out_file) {
-    cout << "[*] GraphFuzz: mutate one <" << in_file << ">::<" << out_file << ">" << endl;
+    cerr << "[*] GraphFuzz: mutate one <" << in_file << ">::<" << out_file << ">" << endl;
 
     unsigned int seed = (unsigned int)atoi(s_seed);
 
@@ -227,8 +227,8 @@ extern "C" int MutateOne(const char *s_seed, const char *in_file, const char *ou
     size_t out_size = LLVMFuzzerCustomMutator(ex_buffer, ex_str.size(), ex_str.size(), seed);
 
     if (graphfuzz_debug) {
-        cout << "Input size: " << ex_str.size() << endl;
-        cout << "Output size: " << out_size << endl;
+        cerr << "Input size: " << ex_str.size() << endl;
+        cerr << "Output size: " << out_size << endl;
     }
 
     if (out_size == 0 || out_size > ex_str.size()) {
@@ -242,14 +242,14 @@ extern "C" int MutateOne(const char *s_seed, const char *in_file, const char *ou
 }
 
 extern "C" int InitCorpus(const char *init_corpus_dir) {
-    cout << "[*] Init corpus" << endl;
+    cerr << "[*] Init corpus" << endl;
     std::string base_dir(init_corpus_dir);
     
     std::vector<unsigned int> usable = global_schema->GetUsableScopes();
 
     for (int i = 0; i < usable.size(); ++i) {
         ScopeDef def = global_schema->GetScope(usable[i]);
-        cout << "\t[" << usable[i] << "] :: " << def.name << endl;
+        cerr << "\t[" << usable[i] << "] :: " << def.name << endl;
 
         TGraph g = TGraph(global_schema);
         g.CreateWithScope(def);
@@ -264,7 +264,7 @@ extern "C" int InitCorpus(const char *init_corpus_dir) {
         out.write(out_str.data(), out_str.size());
     }
 
-    cout << "[*] Done" << endl;
+    cerr << "[*] Done" << endl;
 
     return 0;
 }
@@ -281,7 +281,7 @@ extern "C" size_t LLVMFuzzerCustomMutator(uint8_t *Data, size_t Size, size_t Max
     } else {
         // Mutate existing graph.
         if (!g.Mutate(Seed, graphfuzz_max_nodes, graphfuzz_context_mutation_prob, &mut_id)) {
-            if (graphfuzz_debug) cout << "mutate failed" << endl;
+            if (graphfuzz_debug) cerr << "mutate failed" << endl;
             return 0;
         }
     }
@@ -339,19 +339,19 @@ extern "C" size_t LLVMFuzzerCustomCrossOver(const uint8_t *Data1, size_t Size1, 
         // Crossover.
 
         if (graphfuzz_debug) {
-            cout << "G1:" << endl;
+            cerr << "G1:" << endl;
             g1.PrintAll();
-            cout << "G2:" << endl;
+            cerr << "G2:" << endl;
             g2.PrintAll();
         }
 
         if (!g1.Cross(g2, Seed, graphfuzz_max_nodes)) {
-            if (graphfuzz_debug) cout << "crossover failed" << endl;
+            if (graphfuzz_debug) cerr << "crossover failed" << endl;
             return 0;
         }
 
         if (graphfuzz_debug) {
-            cout << "Cross:" << endl;
+            cerr << "Cross:" << endl;
             g1.PrintAll();
         }
     }
@@ -414,11 +414,11 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
 
     TGraph g = TGraph(global_schema);
     if (!g.Read(inp)) {
-        if (graphfuzz_debug) cout << "invalid proto" << endl;
+        if (graphfuzz_debug) cerr << "invalid proto" << endl;
         return 0;
     }
     if (!g.Validate()) {
-        if (graphfuzz_debug) cout << "invalid" << endl;
+        if (graphfuzz_debug) cerr << "invalid" << endl;
         return 0;
     }
 
@@ -436,7 +436,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
         for (int i = 0; i < n.in_ref_size(); ++i) {
             in_ref[i] = ref[n.index()][i];
             if (graphfuzz_debug) {
-                cout << "Prepare input: " << i << " :: " << in_ref[i] << endl;
+                cerr << "Prepare input: " << i << " :: " << in_ref[i] << endl;
             }
         }
 
@@ -453,7 +453,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
         if (will_bail) {
             // Target called graphfuzz_bail()
             if (graphfuzz_debug) {
-                cout << "Bailing..." << endl;
+                cerr << "Bailing..." << endl;
             }
             return mark_invalid;
         }
@@ -463,7 +463,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
             NodeRef r = n.out_ref(i);
             ref[r.node_idx()][r.conn_idx()] = out_ref[i];
             if (graphfuzz_debug) {
-                cout << "Got output: " << i << " :: " << out_ref[i] << endl;
+                cerr << "Got output: " << i << " :: " << out_ref[i] << endl;
             }
         }
     }
