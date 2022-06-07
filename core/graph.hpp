@@ -864,24 +864,24 @@ public:
 
     void PrintNode(Node n) {
         ScopeDef scope = schema->GetScope(n.type());
-        std::cout << "(" << n.index() << ")<" << n.layer() << ">" << scope.name << "::";
+        std::cerr << "(" << n.index() << ")<" << n.layer() << ">" << scope.name << "::";
 
-        std::cout << "(";
+        std::cerr << "(";
         for (int j = 0; j < n.in_ref_size(); ++j) {
-            if (j > 0) std::cout << ", ";
-            std::cout << n.in_ref(j).node_idx() << "[" << n.in_ref(j).conn_idx() << "]";
+            if (j > 0) std::cerr << ", ";
+            std::cerr << n.in_ref(j).node_idx() << "[" << n.in_ref(j).conn_idx() << "]";
         }
-        std::cout << ")(";
+        std::cerr << ")(";
         for (int j = 0; j < n.out_ref_size(); ++j) {
-            if (j > 0) std::cout << ", ";
-            std::cout << n.out_ref(j).node_idx() << "[" << n.out_ref(j).conn_idx() << "]";
+            if (j > 0) std::cerr << ", ";
+            std::cerr << n.out_ref(j).node_idx() << "[" << n.out_ref(j).conn_idx() << "]";
         }
 
-        std::cout << ")" << std::endl;
+        std::cerr << ")" << std::endl;
     }
 
     void PrintAll() {
-        std::cout << "-----------" << std::endl;
+        std::cerr << "-----------" << std::endl;
         for (unsigned int i = 0; i < (unsigned int)g.nodes_size(); ++i) {
             Node n = g.nodes(i);
             PrintNode(n);
