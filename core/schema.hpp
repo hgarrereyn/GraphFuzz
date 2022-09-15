@@ -214,7 +214,7 @@ public:
 
     /** Load a JSON schema from a file. */
     static Schema *FromFile(std::string filename) {
-        std::cout << "[*] Loading: " << filename << std::endl;
+        std::cerr << "[*] Loading: " << filename << std::endl;
 
         std::ifstream s_file;
         std::stringstream s_dat;
@@ -471,7 +471,7 @@ public:
             finalizers[type_id] = BuildTypeTree(type_id, false, debug, max_depth);
 
             if (debug) {
-                std::cout << "Tree for: " << _schema["types"][i]["name"] << std::endl;
+                std::cerr << "Tree for: " << _schema["types"][i]["name"] << std::endl;
                 PrintTypeTree(initializers[type_id]);
                 PrintTypeTree(finalizers[type_id]);
             }
@@ -546,10 +546,10 @@ public:
         std::ifstream cache_file("cache.json");
         if (cache_file.good() && !prune_cache) {
             // Load type trees from cache.
-            std::cout << "[*] GraphFuzz: loading trees from cache..." << std::endl;
+            std::cerr << "[*] GraphFuzz: loading trees from cache..." << std::endl;
             LoadCached("cache.json");
         } else {
-            std::cout << "[*] GraphFuzz: resetting cache..." << std::endl;
+            std::cerr << "[*] GraphFuzz: resetting cache..." << std::endl;
             CacheTypeTrees(debug, max_depth);
             SaveCached("cache.json");
         }
@@ -580,8 +580,8 @@ public:
 
         CacheUsable(invalid_types);
 
-        std::cout << "[*] After validation: total scopes: " << scopes.size() << std::endl;
-        std::cout << "[*] After validation: usable scopes: " << usable_scopes.size() << std::endl;
+        std::cerr << "[*] After validation: total scopes: " << scopes.size() << std::endl;
+        std::cerr << "[*] After validation: usable scopes: " << usable_scopes.size() << std::endl;
 
         return invalid_types.size() == 0;
     }
@@ -643,36 +643,36 @@ public:
     }
 
     void PrintScopeTree(ScopeTree tree, int n=0) {
-        for (int i = 0; i < n; ++i) std::cout << " ";
+        for (int i = 0; i < n; ++i) std::cerr << " ";
         if (tree.children.size() == 0 && tree.rev_children.size() == 0) {
-            std::cout << "(sig:" << tree.sig_idx << " (" << tree.num_subtrees << "))" << std::endl;
+            std::cerr << "(sig:" << tree.sig_idx << " (" << tree.num_subtrees << "))" << std::endl;
         } else {
-            std::cout << "(sig:" << tree.sig_idx << " (" << tree.num_subtrees << ")" << std::endl;
+            std::cerr << "(sig:" << tree.sig_idx << " (" << tree.num_subtrees << ")" << std::endl;
             for (size_t j = 0; j < tree.children.size(); ++j) {
                 PrintTypeTree(tree.children[j], n+2);
             }
-            for (int i = 0; i < n; ++i) std::cout << " ";
-            std::cout << "<>" << std::endl;
+            for (int i = 0; i < n; ++i) std::cerr << " ";
+            std::cerr << "<>" << std::endl;
             for (size_t j = 0; j < tree.rev_children.size(); ++j) {
                 PrintTypeTree(tree.rev_children[j], n+2);
             }
-            for (int i = 0; i < n; ++i) std::cout << " ";
-            std::cout << ")" << std::endl;
+            for (int i = 0; i < n; ++i) std::cerr << " ";
+            std::cerr << ")" << std::endl;
         }
     }
 
     void PrintTypeTree(TypeTree tree, int n=0) {
-        for (int i = 0; i < n; ++i) std::cout << " ";
+        for (int i = 0; i < n; ++i) std::cerr << " ";
         unsigned int type_idx = type_remap[tree.index];
         if (tree.children.size() == 0) {
-            std::cout << "(" << _schema["types"][type_idx]["name"] << " (" << tree.num_subtrees << "))" << std::endl;
+            std::cerr << "(" << _schema["types"][type_idx]["name"] << " (" << tree.num_subtrees << "))" << std::endl;
         } else {
-            std::cout << "(" << _schema["types"][type_idx]["name"] << " (" << tree.num_subtrees << ")" << std::endl;
+            std::cerr << "(" << _schema["types"][type_idx]["name"] << " (" << tree.num_subtrees << ")" << std::endl;
             for (size_t j = 0; j < tree.children.size(); ++j) {
                 PrintScopeTree(tree.children[j], n+2);
             }
-            for (int i = 0; i < n; ++i) std::cout << " ";
-            std::cout << ")" << std::endl;
+            for (int i = 0; i < n; ++i) std::cerr << " ";
+            std::cerr << ")" << std::endl;
         }
     }
 
