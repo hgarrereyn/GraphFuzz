@@ -68,21 +68,21 @@ GraphFuzz is implemented as a custom mutation engine on top of libFuzzer and as 
 1. Use `gfuzz` to synthesize C++ harness files from your `schema.yaml` harness spec.
 
 ```
-gfuzz gen cpp schema.yaml ./output
+gfuzz gen cpp schema.yaml .
 ```
 
-2. Compile the generated harness files as standard libFuzzer harnesses (`-fsanitize=fuzzer`) and link libgraphfuzz and protobuf dependencies (`-lgraphfuzz -lproto`). Optionally, include any extra sanitizers (ASAN, UBSAN, TSAN, etc...). GraphFuzz will actually create two mirror harnesses: `fuzz_exec` is used for fuzzing and actually invokes the library API while `fuzz_write` generates equivalent source code for a given dataflow graph.
+2. Compile the generated harness files as standard libFuzzer harnesses (`-fsanitize=fuzzer`) and link libgraphfuzz and protobuf dependencies (`-lgraphfuzz -lprotobuf`). Optionally, include any extra sanitizers (ASAN, UBSAN, TSAN, etc...). GraphFuzz will actually create two mirror harnesses: `fuzz_exec` is used for fuzzing and actually invokes the library API while `fuzz_write` generates equivalent source code for a given dataflow graph.
 
 ```bash
 # fuzz_exec: main fuzzer, executes test cases
-clang++ ./output/fuzz_exec.cpp \
-    -lmylib -lgraphfuzz -lproto \
+clang++ fuzz_exec.cpp \
+    -lgraphfuzz -lprotobuf \
     -fsanitize=address,fuzzer \
     -o fuzz_exec
 
 # fuzz_write: converts test cases to source code
-clang++ ./output/fuzz_write.cpp \
-    -lmylib -lgraphfuzz -lproto \
+clang++ fuzz_write.cpp \
+    -lgraphfuzz -lprotobuf \
     -fsanitize=address,fuzzer \
     -o fuzz_write
 ```
