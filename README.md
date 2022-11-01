@@ -87,7 +87,7 @@ clang++ fuzz_write.cpp \
     -o fuzz_write
 ```
 
-3. Run the generated binary with any standard libFuzzer command-line arguments. In addition, there are several additional GraphFuzz-specific arguments prefixed with `--graphfuzz-`. Crash reports are identical to standard libFuzzer reports.
+3. Run the generated binary with any standard libFuzzer command-line arguments. In addition, there are several additional GraphFuzz-specific arguments prefixed with `--graphfuzz_`. Crash reports are identical to standard libFuzzer reports.
 
 ```
 $ ./fuzz_exec
