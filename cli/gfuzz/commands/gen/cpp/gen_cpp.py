@@ -177,7 +177,14 @@ SHIM_HEADER_WRITE = '''
 
 unsigned long CURR_ID = 0;
 
-extern "C" void __attribute__((visibility ("default"))) global_init(int *argc, char ***argv) {{ }}
+extern "C" void __attribute__((visibility ("default"))) global_init(int *argc, char ***argv) {{
+    char **new_argv = (char **)malloc((*argc + 2) * sizeof(char *));
+    memcpy(new_argv, *argv, sizeof(*new_argv) * *argc);
+    new_argv[*argc] = (char *)"-detect_leaks=0";
+    new_argv[*argc + 1] = 0;
+    (*argc)++;
+    *argv = new_argv;
+}}
 
 extern "C" void __attribute__((visibility ("default"))) shim_init() {{
     CURR_ID = 0;
