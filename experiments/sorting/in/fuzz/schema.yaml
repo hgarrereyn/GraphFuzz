@@ -1,0 +1,29 @@
+struct_Sort:
+  type: struct
+  name: Sort
+  alloc_with_new: true
+  headers:
+  - sorting.h
+  - vector
+  methods:
+  - Sort()
+  - ~Sort()
+  - int* qSortWrapper(int *arr, int n):
+      inputs: ['Sort']
+      outputs: []
+      args: ['int[1000]', 'int']
+      exec: |
+        $i0->qSortWrapper($a0, $a1);
+  - int* bubbleSortWrapper(int *arr, int n):
+      inputs: ['Sort']
+      outputs: []
+      args: ['int[1000]', 'int']
+      exec: |
+        $i0->bubbleSortWrapper($a0, $a1);
+  - int* mergeSortWrapper(int *arr, int n):
+      inputs: ['Sort']
+      outputs: []
+      args: ['int[1000]', 'int']
+      exec: |
+        $i0->mergeSortWrapper($a0, $a1);
+    
