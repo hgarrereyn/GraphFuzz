@@ -1,12 +1,35 @@
-
 from typing import Set
 import yaml
+
+
+# for input validation
+SCHEMA_OBJECT_ALLOWED_KEYS = { 'headers', 'c_headers', 'name', 'type', 'static_methods', 'methods', 'context_size', 'values', 'print_cast', 'load', 'finalizer', 'initializer', 'global_init', 'load_arr' }
+SCHEMA_METHOD_ALLOWED_KEYS = { 'inputs', 'outputs', 'args', 'exec' }
 
 
 def _validate_obj(name: str, obj: dict, orig_path: str) -> dict:
     if not 'type' in obj:
         print(f'[!] Error {name} has no attribute "type"')
         return None
+
+    for k in obj:
+        if k not in SCHEMA_OBJECT_ALLOWED_KEYS:
+            print(f'[!] Error {name} has invalid attribute {k!r}')
+            return None
+    for method_type in ('methods', 'static_methods'):
+        for method_specs in obj.get(method_type, []):
+            if isinstance(method_specs, dict):
+                for (method_name, d) in method_specs.items():
+                    for k in d:
+                        if k not in SCHEMA_METHOD_ALLOWED_KEYS:
+                            print(f'[!] Error {name}.{method_type} -> {method_name} has invalid attribute {k!r}')
+                            return None
+            elif isinstance(method_specs, str):
+                # ok like that
+                pass
+            else:
+                print(f'[!] Error {name}.{method_type} -> {method_specs!r} has invalid type {type(method_specs)} (expected str or dict)')
+                return None
 
     obj['orig_path'] = orig_path
     obj['headers'] = obj.get('headers') or []
@@ -17,11 +40,17 @@ def _validate_obj(name: str, obj: dict, orig_path: str) -> dict:
 
     obj['name'] = obj.get('name') or ''
 
-    if obj['type'] in ['struct', 'class', 'file']:
+    if obj['type'] in {'struct', 'class', 'file'}:
         obj['methods'] = obj.get('methods') or []
         obj['static_methods'] = obj.get('static_methods') or []
+    elif obj['type'] in {'config', 'enum', 'simple', 'ignore'}:
+        pass
+    else:
+        print(f'[!] Error {name} has invalid attribute "type": {obj["type"] !r}')
+        return None
 
     return obj
+
 
 class Schema(object):
     """A schema represents the API surface of a target."""
@@ -65,7 +94,7 @@ class Schema(object):
         # Process include list.
         if loaded is None:
             loaded = set()
-            
+
         include = objects.get('include') or []
         for sub_path in include:
             if sub_path in loaded:

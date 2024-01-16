@@ -255,13 +255,24 @@ extern "C" int InitCorpus(const char *init_corpus_dir) {
         g.CreateWithScope(def);
 
         std::string fpath = base_dir + "/seed_" + to_string(i);
+        if (graphfuzz_debug) {
+          cerr << "\tattempting to write to " << fpath << endl;
+        }
         
         bool err = false;
         string out_str = g.Write(&err);
-        if (err) return -1;
+        if (err) {
+          if (graphfuzz_debug) {
+            cerr << "\tFailed to write graph - aborting" << endl;
+          }
+          return -1;
+        }
 
         ofstream out(fpath);
         out.write(out_str.data(), out_str.size());
+        if (graphfuzz_debug) {
+          cerr << "\twrote graph to " << fpath << endl;
+        }
     }
 
     cerr << "[*] Done" << endl;
@@ -426,11 +437,23 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
 
     vector<Node> nodes = g.GetOrderedNodes();
     void *ref[nodes.size()][MAX_CONN];
+    if (graphfuzz_debug) {
+        // catch uninitialized reads early on
+        memset(ref, 0xca, sizeof(ref));
+    }
 
     for (Node n : nodes) {
-        void *in_ref[n.in_ref_size()];
-        void *out_ref[n.out_ref_size()];
+        // allocate at least 1 even if we use only 0 to avoid zero-sized stack
+        // arrays that are UB.
+        void *in_ref[n.in_ref_size() + 1];
+        void *out_ref[n.out_ref_size() + 1];
         const char *context = n.context().data();
+
+        if (graphfuzz_debug) {
+            // fail more obviously if we have an uninit read for some reason
+            memset(in_ref, 0xca, sizeof(in_ref));
+            memset(out_ref, 0xca, sizeof(out_ref));
+        }
 
         // Load inputs.
         for (int i = 0; i < n.in_ref_size(); ++i) {
@@ -446,6 +469,9 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
         // Unset bail flag.
         will_bail = false;
 
+        if (graphfuzz_debug) {
+          cerr << "Invoking shim_" << n.type() << endl;
+        }
         // Invoke shim.
         void (*func)(void **, void **, const char *) = FUZZER_SHIMS[n.type()];
         func(in_ref, out_ref, context);
@@ -453,8 +479,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
         if (will_bail) {
             // Target called graphfuzz_bail()
             if (graphfuzz_debug) {
-                cerr << "Bailing..." << endl;
+                cerr << "Bailing... (invalid? " << mark_invalid << ")" << endl;
             }
+
+            shim_finalize();
             return mark_invalid;
         }
 
