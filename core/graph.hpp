@@ -347,11 +347,18 @@ private:
      * Recursively sample and append nodes from a type tree.
      */
     void AppendTree(unsigned int node_idx, unsigned int conn_idx, int layer, bool forward, TypeTree tree) {
-        int sample = ((unsigned int)rand()) % tree.num_subtrees;
-        unsigned int sample_idx = -1;
-        while (sample >= 0) {
+        // fail loud when assertions are enabled
+        assert(tree.num_subtrees > 0);
+        assert(tree.children.size() > 0);
+        // return early in case the assertions are disabled
+        if (tree.num_subtrees == 0 || tree.children.size() == 0) return;
+
+        unsigned int sample = ((unsigned int)rand()) % tree.num_subtrees;
+        unsigned int sample_idx = 0;
+        unsigned int subtree_sum = tree.children[sample_idx].num_subtrees;
+        while (subtree_sum < sample && sample_idx < tree.children.size()) {
             sample_idx += 1;
-            sample -= tree.children[sample_idx].num_subtrees;
+            subtree_sum += tree.children[sample_idx].num_subtrees;
         }
 
         ScopeTree stree = tree.children[sample_idx];
