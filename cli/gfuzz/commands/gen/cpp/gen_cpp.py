@@ -53,7 +53,7 @@ CPP_LOAD_REF_WRITE = '''\
 '''
 
 CPP_SAVE_REF = '''\
-    out_ref[{out_ref_idx}] = reinterpret_cast<void *>({arg_name});
+    out_ref[{out_ref_idx}] = (void*)({arg_name});
 '''
 
 CPP_LOAD_SIMPLE = '''\
