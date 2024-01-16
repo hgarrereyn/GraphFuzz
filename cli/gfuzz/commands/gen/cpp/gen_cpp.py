@@ -5,6 +5,7 @@ from typing import List, Tuple, Set, Dict
 import json
 import re
 import yaml
+import codecs
 
 from gfuzz.commands.cliopt import CLIOpt
 from gfuzz.schema import Schema
@@ -202,14 +203,7 @@ SHIM_HEADER_WRITE = '''
 
 unsigned long CURR_ID = 0;
 
-extern "C" void __attribute__((visibility ("default"))) global_init(int *argc, char ***argv) {{
-    char **new_argv = (char **)malloc((*argc + 2) * sizeof(char *));
-    memcpy(new_argv, *argv, sizeof(*new_argv) * *argc);
-    new_argv[*argc] = (char *)"-detect_leaks=0";
-    new_argv[*argc + 1] = 0;
-    (*argc)++;
-    *argv = new_argv;
-}}
+extern "C" void __attribute__((visibility ("default"))) global_init(int *argc, char ***argv) {{ }}
 
 extern "C" void __attribute__((visibility ("default"))) shim_init() {{
     CURR_ID = 0;
@@ -218,9 +212,12 @@ extern "C" void __attribute__((visibility ("default"))) shim_init() {{
     std::cout << "{macros}" << std::endl;
 
     std::cout << "int main() {{" << std::endl;
+    std::cout << "{global_init}" << std::endl;
+    std::cout << "{initializer}" << std::endl;
 }}
 
 extern "C" void __attribute__((visibility ("default"))) shim_finalize() {{
+    std::cout << "{finalizer}" << std::endl;
     std::cout << "}}" << std::endl;
 }}
 '''
@@ -1145,10 +1142,42 @@ def make_write_harness(schema: Schema, scopes: List[CPPScope]) -> str:
     includes = ''.join(includes)
     header_string = includes.replace('"', "\\\"").replace('\n', '\\n')
 
+    # Check for custom initializer/finalizer
+    global_init = ''
+    initializer = ''
+    finalizer = ''
+    for k in schema.objects:
+        if schema.objects[k]['type'] == 'config':
+            if 'global_init' in schema.objects[k]:
+                global_init = schema.objects[k]['global_init']
+            if 'initializer' in schema.objects[k]:
+                initializer = schema.objects[k]['initializer']
+            if 'finalizer' in schema.objects[k]:
+                finalizer = schema.objects[k]['finalizer']
+    # override the writer
+    for k in schema.objects:
+        if schema.objects[k]['type'] == 'config_writer':
+            global_init = ''
+            initializer = ''
+            finalizer = ''
+            if 'global_init' in schema.objects[k]:
+                global_init = schema.objects[k]['global_init']
+            if 'initializer' in schema.objects[k]:
+                initializer = schema.objects[k]['initializer']
+            if 'finalizer' in schema.objects[k]:
+                finalizer = schema.objects[k]['finalizer']
+
+    global_init = codecs.escape_encode(bytes(global_init, 'ascii'))[0].decode('ascii')
+    initializer = codecs.escape_encode(bytes(initializer, 'ascii'))[0].decode('ascii')
+    finalizer = codecs.escape_encode(bytes(finalizer, 'ascii'))[0].decode('ascii')
+
     code = FULL_HARNESS.format(
         includes='',
         header=SHIM_HEADER_WRITE.format(
             header_string=header_string,
+            global_init=global_init,
+            initializer=initializer,
+            finalizer=finalizer,
             macros=SHIM_MACROS.replace('"', "\\\"").replace('\n', '\\n')
         ),
         shim_code=shim_code,
