@@ -90,6 +90,30 @@ CPP_PRINT_SIMPLE_ARRAY = '''\
     std::cout << "}};" << std::endl;
 '''
 
+CPP_PRINT_CHAR_ARRAY = '''\
+    std::cout << "// {var_type} {arg_name}[{count}] = \\"";
+    for (int i = 0; i < {count}; ++i) {{
+        char c = {arg_name}[i];
+        if (isprint(c) && c != '"' && c != '\\n') {{
+            std::cout << c;
+        }} else {{
+            char x[8] = {{0,}};
+            unsigned char _c = c;
+            snprintf(x, sizeof(x), "\\\\x%02x", _c);
+            std::cout << x;
+        }}
+    }}
+    std::cout << "\\";" << std::endl;
+    std::cout << "    {var_type} {arg_name}[{count}] = {{";
+    for (int i = 0; i < {count}; ++i) {{
+        if (i % 16 == 0 && {count} > 16) std::cout << std::endl << "        ";
+        std::cout << {print_cast}{arg_name}[i];
+        if (i < {count} - 1) std::cout << ", ";
+    }}
+    if ({count} > 16) std::cout << std::endl << "    ";
+    std::cout << "}};" << std::endl;
+'''
+
 CPP_LOAD_ENUM = '''\
     {var_type} {arg_name};
     switch (*(reinterpret_cast<const unsigned char *>(context + {context_offset})) % {enum_size}) {{
@@ -174,6 +198,7 @@ SHIM_HEADER_WRITE = '''
 #include <string.h>
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 unsigned long CURR_ID = 0;
 
@@ -851,7 +876,10 @@ free($i0);
                         context_offset=context_offset,
                         context_size=k['context_size']
                     ))
-                    inner_load_args.append(CPP_PRINT_SIMPLE_ARRAY.format(
+                    fmtstring = CPP_PRINT_SIMPLE_ARRAY
+                    if k['name'] == 'char':
+                        fmtstring = CPP_PRINT_CHAR_ARRAY
+                    inner_load_args.append(fmtstring.format(
                         var_type=k['name'],
                         count=self.arg_count[i],
                         arg_name=name,
